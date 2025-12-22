@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light" style=""><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이력서 - 윤수인 AI Product Engineer</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+      :root {
+        --primary-blue: #2563eb;
+        --dark-blue: #1e3a8a;
+        --mid-blue: #3b82f6;
+        --sky-blue: #0ea5e9;
+        --light-blue-bg: #eff6ff;
+        --gray-bg: #f8fafc;
+        --text-main: #1e293b;
+        --text-muted: #64748b;
+        --border-color: #e2e8f0;
+      }
+
+      body {
+        font-family: 'Noto Sans KR', sans-serif;
+        max-width: 1000px; /* Slightly wider for 2-column layout */
+        margin: 0 auto;
+        padding: 0;
+        background-color: #fff;
+        color: var(--text-main);
+        line-height: 1.5;
+        box-sizing: border-box;
+      }
+
+      /* Layout Container */
+      .resume-container {
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+        min-height: 100vh;
+      }
+
+      /* MAIN CONTENT - 2 COLUMNS */
+      .main-content {
+        display: flex;
+        flex: 1;
+      }
+
+      /* LEFT COLUMN */
+      aside {
+        width: 35%;
+        background-color: var(--gray-bg);
+        padding: 40px 30px;
+        border-right: 1px solid var(--border-color);
+        flex-shrink: 0;
+      }
+
+      /* RIGHT COLUMN */
+      main {
+        width: 65%;
+        padding: 40px 40px;
+        background-color: #fff;
+      }
+
+      /* SECTIONS COMMON */
+      .section-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--dark-blue);
+        text-transform: uppercase;
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 8px;
+        margin-bottom: 20px;
+        margin-top: 30px;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .section-title:first-of-type {
+        margin-top: 0;
+      }
+
+      .section-title i {
+        color: var(--mid-blue);
+      }
+
+      /* LEFT COLUMN STYLES */
+      .tagline-box {
+        background: transparent;
+        color: var(--text-main);
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        margin-bottom: 30px;
+        border: 2px solid var(--border-color);
+      }
+      
+      .tagline {
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin: 0;
+        line-height: 1.5;
+        letter-spacing: 0.3px;
+        color: var(--text-main);
+      }
+      
+      .photo-area {
+        width: 150px;
+        height: 180px;
+        border: 2px dashed #cbd5e1;
+        margin: 0 auto 30px auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #94a3b8;
+        background: #fff;
+        text-align: center;
+        border-radius: 4px;
+      }
+
+      .info-item {
+        margin-bottom: 12px;
+        font-size: 0.95rem;
+      }
+
+      .info-item label {
+        font-weight: 700;
+        color: var(--text-main);
+        display: block;
+        margin-bottom: 2px;
+        font-size: 0.85rem;
+      }
+
+      .info-item input {
+        width: 100%;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #cbd5e1;
+        padding: 2px 0;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        margin-bottom: 0;
+      }
+
+      .edu-item {
+        margin-bottom: 20px;
+      }
+
+      .edu-period {
+        font-size: 0.85rem;
+        color: var(--mid-blue);
+        font-weight: 600;
+        display: block;
+        margin-bottom: 2px;
+      }
+
+      .edu-school {
+        font-weight: 700;
+        font-size: 1rem;
+        color: var(--text-main);
+        display: block;
+      }
+
+      .edu-degree {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+      }
+
+      .skill-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+
+      .skill-name {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--text-main);
+      }
+
+      .skill-dots {
+        display: flex;
+        gap: 3px;
+      }
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: #cbd5e1;
+      }
+
+      .dot.filled {
+        background-color: var(--primary-blue);
+      }
+
+      .cert-item {
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+        line-height: 1.4;
+      }
+
+      .cert-date {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        display: block;
+      }
+
+      /* RIGHT COLUMN STYLES */
+
+      /* Key Achievements - Cards */
+      .achievement-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .achievement-card {
+        background-color: var(--light-blue-bg);
+        border-left: 4px solid var(--mid-blue);
+        padding: 12px 15px;
+        border-radius: 0 4px 4px 0;
+        font-size: 0.95rem;
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+      }
+
+      .achievement-card i {
+        color: var(--mid-blue);
+        margin-top: 3px;
+      }
+
+      .achievement-text strong {
+        color: var(--dark-blue);
+        font-weight: 700;
+      }
+
+      /* Experience - Timeline */
+      .timeline {
+        position: relative;
+        padding-left: 20px;
+        border-left: 2px solid var(--border-color);
+      }
+
+      .timeline-item {
+        position: relative;
+        margin-bottom: 30px;
+      }
+
+      .timeline-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .timeline-dot {
+        position: absolute;
+        left: -26px; /* line width 2px + padding 20px + dot radius 4px */
+        top: 5px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: white;
+        border: 2px solid var(--mid-blue);
+      }
+
+      .exp-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 4px;
+      }
+
+      .exp-role {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--text-main);
+      }
+
+      .exp-company {
+        font-size: 1rem;
+        color: var(--mid-blue);
+        font-weight: 600;
+        margin-bottom: 5px;
+        display: block;
+      }
+
+      .exp-date {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        font-weight: 500;
+        background: #f1f5f9;
+        padding: 2px 8px;
+        border-radius: 10px;
+      }
+
+      .exp-details {
+        margin: 0;
+        padding-left: 18px;
+        color: #475569;
+        font-size: 0.95rem;
+      }
+
+      .exp-details li {
+        margin-bottom: 3px;
+      }
+
+      /* Projects - Collapsible/Details */
+      details.project-item {
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        margin-bottom: 12px;
+        background: #fff;
+        transition: all 0.2s ease;
+      }
+
+      details.project-item[open] {
+        border-color: var(--mid-blue);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+
+      summary {
+        padding: 12px 15px;
+        cursor: pointer;
+        font-weight: 600;
+        color: var(--text-main);
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      summary::-webkit-details-marker {
+        display: none;
+      }
+
+      summary::after {
+        content: '\f078'; /* FontAwesome chevron down */
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        transition: transform 0.2s;
+      }
+
+      details[open] summary::after {
+        transform: rotate(180deg);
+        color: var(--mid-blue);
+      }
+
+      summary:focus {
+        outline: none;
+        background-color: #f8fafc;
+        border-radius: 6px 6px 0 0;
+      }
+
+      .project-details {
+        padding: 15px;
+        border-top: 1px solid var(--border-color);
+        background-color: #fafbfd;
+        border-radius: 0 0 6px 6px;
+      }
+
+      .project-meta {
+        margin-bottom: 10px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .badge {
+        font-size: 0.75rem;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-weight: 600;
+      }
+
+      .badge-result {
+        background-color: #dbeafe;
+        color: #1e40af;
+      }
+
+      .badge-tech {
+        background-color: #f1f5f9;
+        color: #475569;
+        border: 1px solid #e2e8f0;
+      }
+
+      .project-desc {
+        font-size: 0.9rem;
+        color: #475569;
+        margin: 0;
+      }
+
+      .project-highlight {
+        color: var(--mid-blue);
+        font-weight: 600;
+      }
+
+      /* Override Pico defaults */
+      ul {
+        margin-bottom: 0;
+      }
+      p {
+        margin-bottom: 0;
+      }
+      input:focus {
+        border-color: var(--mid-blue);
+        box-shadow: none;
+      }
+    </style>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Open%20Sans:wght@400&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Google%20Sans:wght@400&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Noto%20Sans%20JP:wght@400&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&amp;display=swap" rel="stylesheet"></head>
+  <body style="">
+    <div class="resume-container">
+      <!-- HEADER SECTION -->
+      <header style="background: linear-gradient(135deg, #2c5aa0, #4a7bc8); padding: 30px 50px; display: flex; align-items: center; gap: 25px;">
+        <!-- Photo -->
+        <div style="width: 130px; height: 160px; background: #f0f4f8; border: 2px solid transparent; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #94a3b8; border-radius: 4px; overflow: hidden; padding: 0;">
+          <img alt="Profile Picture" src="https://page.gensparksite.com/get_upload_url/b928563d9d6334347c98c730223f301cd77a50fb5145c30316ebdbeff85a10e8/default/da294c74-95ee-4f91-95e1-9e91a3a0a9c6" style="width: 100%; height: 100%; object-fit: cover; margin: 0; padding: 0;" data-height-listener-added="true">
+        </div>
+        
+        <!-- Name and Title -->
+        <div style="flex: 1;">
+          <h3 style="margin: 0 0 5px 0; font-size: 1.1rem; font-weight: 300; color: white; opacity: 0.95;">Hello, I'm Sooin!</h3>
+          <h1 style="margin: 0 0 15px 0; font-size: 2.5rem; font-weight: 900; color: white; letter-spacing: -1px;">윤수인&nbsp;</h1>
+          
+          <!-- Search Box with Pill Design -->
+          <div style="position: relative; max-width: 450px;">
+            <input type="text" value="AI Product Engineer" style="width: 100%; padding: 12px 50px 12px 20px; border: none; border-radius: 25px; font-size: 1rem; background: white; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); font-weight: 500; color: #2563eb;">
+            <div style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); background: linear-gradient(135deg, #3b82f6, #2563eb); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4); cursor: pointer;">
+              <i class="fa-solid fa-search" style="color: white; font-size: 0.9rem;"></i>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="main-content">
+        <!-- LEFT COLUMN -->
+        <aside>
+          <!-- Tagline -->
+          <div class="tagline-box" style="border: none; padding: 20px 5px; margin-left: -10px; margin-right: -10px;">
+            <p class="tagline" style="text-align: left;"><span style="font-size: 17px;">"</span><span style="font-size: 17px;">문제 정의부터&nbsp;</span><span style="font-size: 17px; letter-spacing: 0.3px; background-color: transparent;">판단 구조 설계,&nbsp;</span></p><p class="tagline" style="text-align: left;"><span style="font-size: 17px;">자동화 시스템 배포까지&nbsp;</span></p><p class="tagline" style="text-align: left;"><span style="font-size: 17px;">완성하는&nbsp;</span><span style="font-size: 17px; letter-spacing: 0.3px; background-color: transparent; text-align: center;">AI Engineer"</span></p>
+          </div>
+
+          <!-- Contact Info -->
+          <div class="section-title"><i class="fa-solid fa-address-card"></i><span style="font-size: 17px;"> Basic Info</span></div>
+          <div class="info-item">
+            <label><span style="font-size: 17px;">이메일</span></label>
+            <input type="text" value="sooin5414@gmail.com">
+          </div>
+          <div class="info-item">
+            <label><span style="font-size: 17px;">연락처</span></label>
+            <input type="text" value="010-6447-5414">
+          </div>
+
+          <!-- Education -->
+          <div class="section-title"><i class="fa-solid fa-graduation-cap"></i><span style="font-size: 17px;"> Education</span></div>
+          <div class="edu-item">
+            <span style="font-size: 17px;">2023.02 ~ 2025.02</span>
+            <span style="font-size: 17px;">광주과학기술원 (GIST)</span>
+            <span style="font-size: 17px;">AI 대학원 석사 졸업</span>
+          </div>
+          <div class="edu-item">
+            <span style="font-size: 17px;">2016.05 ~ 2018.05</span>
+            <span style="font-size: 17px;">ASA College</span>
+            <span style="font-size: 17px;">회계학 준학사 (New York)</span>
+          </div>
+          <div class="edu-item">
+            <span style="font-size: 17px;">2009.03 ~ 2015.02</span>
+            <span style="font-size: 17px;">조선대학교</span>
+            <span style="font-size: 17px;">컴퓨터공학/경영학 (4.1/4.5)</span>
+          </div>
+
+          <!-- Core Competencies -->
+          <div class="section-title"><i class="fa-solid fa-lightbulb"></i><span style="font-size: 17px;"> 핵심 역량</span></div>
+          
+          <div style="background: white; padding: 15px; border-radius: 6px; margin-bottom: 15px; border-left: 3px solid var(--mid-blue);">
+            <div style="font-weight: 700; color: var(--dark-blue); margin-bottom: 8px; font-size: 0.95rem;"><span style="font-size: 17px;">
+              ✅ End-to-End 구현력
+            </span></div>
+            <div style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;"><span style="font-size: 17px;">
+              • Python (FastAPI/Flask) 기반 API 개발</span><br><span style="font-size: 17px;">
+              • LLM, RAG, NLP 파이프라인 구축</span><br><span style="font-size: 17px;">
+              • Docker 컨테이너화 경험 (AWS 배포)
+            </span></div>
+          </div>
+
+          <div style="background: white; padding: 15px; border-radius: 6px; margin-bottom: 15px; border-left: 3px solid var(--mid-blue);">
+            <div style="font-weight: 700; color: var(--dark-blue); margin-bottom: 8px; font-size: 0.95rem;"><span style="font-size: 17px;">
+              ✅ 빠른 실험 사이클
+            </span></div>
+            <div style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;"><span style="font-size: 17px;">
+              • 프로토타입을 빠르게 제작하여</span><span style="font-size: 17px;">&nbsp;아이디어 검증</span><span style="font-size: 17px;">&nbsp;</span></div><div style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;"><span style="font-size: 17px;">• 여러 접근법을 비교 실험 후</span><span style="font-size: 17px;">
+              &nbsp;&nbsp;데이터 기반 선택
+            </span></div>
+          </div>
+
+          <div style="background: white; padding: 15px; border-radius: 6px; margin-bottom: 15px; border-left: 3px solid var(--mid-blue);">
+            <div style="font-weight: 700; color: var(--dark-blue); margin-bottom: 8px; font-size: 0.95rem;"><span style="font-size: 17px;">
+              ✅ 데이터 기반 의사결정
+            </span></div>
+            <div style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;"><span style="font-size: 17px;">
+              • A/B 테스트와 통계적 분석을 통해 의사결정 기준 정량화</span></div><div style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;"><span style="font-size: 17px;">• 개선 효과를 수치로 검증, 결과를 다음 설계, 운용 판단반영</span></div>
+          </div>
+
+          <!-- Certifications -->
+          <div class="section-title"><i class="fa-solid fa-certificate"></i><span style="font-size: 17px;"> Certifications</span></div>
+          <div class="cert-item">
+            <strong><span style="font-size: 17px;">빅데이터 분석기사</span></strong>&nbsp; &nbsp;&nbsp;</div><div class="cert-item"><span style="font-size: 17px;">한국데이터산업진흥원</span>
+          </div>
+          <div class="cert-item">
+            <strong><span style="font-size: 17px;">인공지능사관학교 3기 수료</span></strong>
+            <span style="font-size: 17px;">2022.06 ~ 2022.12 (1300h)</span>
+          </div>
+        </aside>
+
+        <!-- RIGHT COLUMN -->
+        <main>
+
+          <!-- Key Achievements -->
+          <div class="section-title"><i class="fa-solid fa-trophy"></i><span style="font-size: 17px;"> Key Achievements</span></div>
+          <div class="achievement-grid">
+            <div class="achievement-card">
+              <i class="fa-solid fa-check-circle"></i>
+              <div class="achievement-text">
+                <strong><span style="font-size: 17px;">한국어 구문분석 자동화</span></strong><span style="font-size: 17px;"> | (주)에듀템</span><br><span style="font-size: 17px;">
+                → 전문가 분석 시간 20분 → 1초 단축 (1200배 개선)</span><br><span style="font-size: 17px;">
+                → 형태소–품사–구문 분석 파이프라인 구축으로 문장 처리 자동화 달성
+              </span></div>
+            </div>
+            <div class="achievement-card">
+              <i class="fa-solid fa-check-circle"></i>
+              <div class="achievement-text">
+                <strong><span style="font-size: 17px;">업무 자동화 시스템 구축</span></strong><span style="font-size: 17px;"> | National Debt Law</span><br><span style="font-size: 17px;">
+                → Excel 기반 자금 관리 자동화로 업무시간 60% 감소</span><br><span style="font-size: 17px;">
+                → 자금 모니터링 업무를 시스템화하여 팀 생산성 향상
+              </span></div>
+            </div>
+            <div class="achievement-card">
+              <i class="fa-solid fa-check-circle"></i>
+              <div class="achievement-text">
+                <strong><span style="font-size: 17px;">A/B 테스트 기반 광고 최적화</span></strong><span style="font-size: 17px;"> | National Debt Law</span><br><span style="font-size: 17px;">
+                → 데이터 분석으로 효과적인 광고 채널 식별</span><br><span style="font-size: 17px;">
+                → 광고 효율 2배 개선 (비용 대비 상담 전환율 증가)
+              </span></div>
+            </div>
+            <div class="achievement-card">
+              <i class="fa-solid fa-check-circle"></i>
+              <div class="achievement-text">
+                <strong><span style="font-size: 17px;">RAG 기반 금융 문서 해석 LLM 질의응답 시스템</span></strong><span style="font-size: 17px;"> | 석사논문</span><br><span style="font-size: 17px;">
+                → 검색 정확도 2.5% → 76.69% 향상 (약 30배 개선)</span><br><span style="font-size: 17px;">
+                → 다중 Re-ranker 조합 최적화를 통해 금융 도메인 질의응답 신뢰도 대폭 개선
+              </span></div>
+            </div>
+          </div>
+
+          <!-- Professional Experience -->
+          <div class="section-title"><i class="fa-solid fa-briefcase"></i><span style="font-size: 17px;"> Professional Experience</span></div>
+          <div class="timeline">
+            <!-- Job 1 -->
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="exp-header">
+                <span style="font-size: 17px;">AI Engineer</span>
+                <span style="font-size: 18px;">2025.06 ~ 현재</span>
+              </div>
+              <span style="font-size: 18px;">(주)에듀템 | 광주지점</span>
+              <ul class="exp-details">
+                <li><span style="font-size: 18px;">외국인 대상 한국어 문법 분석 자동화 시스템 개발</span></li>
+                <li><span style="font-size: 18px;">BERT 기반 한국어 품사 태깅 모델 파인튜닝&nbsp;</span></li>
+                <li><span style="font-size: 18px;">mBERT 기반 임베딩 활용 한국어-영어 glossing 자동화 파이프라인 구축</span></li>
+              </ul>
+            </div>
+
+            <!-- Job 2 -->
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="exp-header">
+                <span style="font-size: 18px;">Business Analyst &amp; PM</span>
+                <span style="font-size: 18px;">2019.04 ~ 2022.04</span>
+              </div>
+              <span style="font-size: 18px;">National Debt Law | New York(스타트업)</span><ul class="exp-details">
+                <li><span style="font-size: 18px;">고객 자산/부채 금융 데이터(정형/비정형) FDIC 규정 기반 처리 및 관리</span></li>
+                <li><span style="font-size: 18px;">Escrow 자금 흐름 모니터링 및 이상탐지 시스템 운용</span></li>
+                <li><span style="font-size: 18px;">법인/개인 자산 흐름 기반 실시간 대시보드 구축 및 성과 모니터링</span></li><li><span style="font-size: 18px;">기회, 데이터 분석, 시스템 설계, 운영까지 역할 구분 없이 주도적으로 수행</span></li>
+              </ul>
+            </div>
+
+            <!-- Job 3 -->
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="exp-header">
+                <span style="font-size: 18px;">회계부서 인턴</span>
+                <span style="font-size: 18px;">2015.04 ~ 2016.04</span>
+              </div>
+              <span style="font-size: 18px;">Grant Supplies | NJ, Hackensack</span>
+              <ul class="exp-details">
+                <li><span style="font-size: 18px;">회계 소프트웨어 활용 주간 급여 계산 및 회계데이터 관리</span></li>
+                <li><span style="font-size: 18px;">매출/비용 데이터 취합 및 재무 정보 정산 보조</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Key Projects -->
+          <div class="section-title"><i class="fa-solid fa-folder-open"></i><span style="font-size: 18px;"> Key Projects</span></div>
+
+          <!-- Project 1 - Escrow 자금 관리 -->
+          <details class="project-item" open="">
+            <summary>Escrow 자금 관리 자동화 시스템 설계 및 구축</summary>
+            <div class="project-details">
+              <div class="project-meta">
+                <span class="badge badge-result">🎯 업무시간 60% 감소 (1 M/M)</span>
+                <span class="badge badge-tech">Excel Automation</span>
+                <span class="badge badge-tech">Dashboard</span>
+                <span class="badge badge-tech">Decision Logic Design</span>
+              </div>
+              <p class="project-desc">
+                <strong>문제 정의</strong><br>
+                • 고객별 재무 상태 및 Escrow Bank를 통한 자금 분배가 수작업 중심으로 이루어져 업무 처리 기준이 개인에 의존<br>
+                • 자금 분배·수수료 계산·상환 우선순위 판단 과정에서 반복적인 판단 오류 및 검증 비용 발생<br><br>
+                
+                <strong>판단 구조 설계 (Decision Logic Design)</strong><br>
+                • 고객별 자금 상태를 다음 기준으로 구조화:<br>
+                &nbsp;&nbsp;- 연체 여부<br>
+                &nbsp;&nbsp;- 이자 부과 내역<br>
+                &nbsp;&nbsp;- 채권 추심 가능성<br>
+                &nbsp;&nbsp;- 상환 우선순위<br>
+                • 자금 분배 규칙을 명시적 로직으로 정의하여 "누가 처리하더라도 동일한 판단 결과가 나오도록" 설계<br><br>
+                
+                <strong>자동화 시스템 구현 및 배포</strong><br>
+                • 은행 서류 데이터를 정형화하여 자금 흐름을 실시간으로 집계·검증하는 대시보드 구축<br>
+                • Excel 기반 자동화 시트를 통해:<br>
+                &nbsp;&nbsp;- Escrow Bank 유입 자금 자동 분류<br>
+                &nbsp;&nbsp;- 수수료·상환금 계산 및 분배 로직 자동 실행<br>
+                &nbsp;&nbsp;- 반복 업무를 시스템에 위임하여 사람은 예외 케이스만 처리<br><br>
+                
+                <strong>성과</strong><br>
+                <span class="project-highlight">• 월 단위 업무 시간 60% 이상 감소</span><br>
+                • 자금 흐름 모니터링 담당 인력을 다른 핵심 업무로 재배치하여 조직 생산성 향상<br>
+                • 판단 기준이 시스템화되어 신규 인력 투입 시에도 온보딩 비용 최소화
+              </p>
+            </div>
+          </details>
+
+          <!-- Project 2 - 광고 최적화 -->
+          <details class="project-item" open="">
+            <summary>통계분석 기반 효율적 광고채널 평가 및 최적화</summary>
+            <div class="project-details">
+              <div class="project-meta">
+                <span class="badge badge-result">🎯 광고 효율 2배 개선</span>
+                <span class="badge badge-tech">통계분석</span>
+                <span class="badge badge-tech">A/B Testing</span>
+                <span class="badge badge-tech">데이터 시각화</span>
+              </div>
+              <p class="project-desc">
+                <strong>문제 정의</strong><br>
+                • 미국 내 한인 커뮤니티는 광고 채널 선택이 경험과 직관에 의존<br>
+                • 채널별 성과를 비교할 객관적 기준 부재 및 광고비 배분 일관성 부족<br><br>
+                
+                <strong>판단 구조 설계 (Decision Logic Design)</strong><br>
+                • 광고 채널 성과를 지표로 구조화:<br>
+                &nbsp;&nbsp;- 고객 유입 비용<br>
+                &nbsp;&nbsp;- 상담 전환율<br>
+                &nbsp;&nbsp;- 채널별 반응 패턴<br>
+                • 정량적 비교 기준 정의<br><br>
+                
+                <strong>실험 설계 및 자동화된 검증</strong><br>
+                • 다양한 광고 매체(신문, 온라인, 라디오, 전단지) 성과 데이터 수집 및 정규화<br>
+                • A/B 테스트: 전단지 문구/디자인 효과 비교 및 통계적 검증<br>
+                • 실험 결과 기반 채널/콘텐츠 선택 기준 지속 업데이트<br><br>
+                
+                <strong>성과</strong><br>
+                • 통계 분석과 A/B 테스트로 광고 비용 대비 고객 상담 전환율 지속 증가<br>
+                • 효율적인 광고 채널 식별 → <span class="project-highlight">일평균 광고 효율성 2배 개선</span><br>
+                • 광고 의사결정을 개인 경험에서 데이터 기반 시스템으로 전환
+              </p>
+            </div>
+          </details>
+
+          <!-- Project 3 - 에듀템 Grammar -->
+          <details class="project-item" open="">
+            <summary><span style="font-size: 18px;">외국인 대상 한국어 문법 분석·설명 자동화 시스템</span></summary>
+            <div class="project-details">
+              <div class="project-meta">
+                <span class="badge badge-result">🎯 20분 → 1초 (1200배 개선)</span>
+                <span class="badge badge-tech">BERT</span>
+                <span class="badge badge-tech">SuPar</span>
+                <span class="badge badge-tech">NLP Pipeline</span>
+              </div>
+              <p class="project-desc">
+                <strong>문제 정의</strong><br>
+                • 형태소·구문 분석 오류가 문법 설명 품질 저하로 연쇄 전파되는 구조적 한계 존재<br><br>
+                
+                <strong>주요 역할</strong><br>
+                • 문법 설명 품질을 기준으로 분석 결과를 재검토할 수 있도록 형태소–품사–구문 분석 파이프라인 설계<br><br>
+                
+                <strong>주요 성과</strong><br>
+                • <span class="project-highlight">전문가 수작업 20분 → 1초로 자동화</span><br>
+                • 대규모 문장 분석 및 시각화 즉시 제공
+              </p>
+            </div>
+          </details>
+
+          <!-- Project 4 - 석사논문 RAG -->
+          <details class="project-item" open="">
+            <summary><span style="font-size: 18px;">GA 기반 RAG 문서 재정렬 의사결정 시스템</span></summary>
+            <div class="project-details">
+              <div class="project-meta">
+                <span class="badge badge-result">🎯 정답률 3.81%p 향상</span>
+                <span class="badge badge-tech">FAISS</span>
+                <span class="badge badge-tech">Genetic Algorithm</span>
+                <span class="badge badge-tech">Multi Re-ranker</span>
+                <span class="badge badge-tech">RAG</span>
+              </div>
+              <p class="project-desc">
+                <strong>문제 정의</strong><br>
+                • 단일 리랭커·고정 가중치 방식으로는 질의 특성에 따른 문서 신뢰 판단이 어려움<br><br>
+                
+                <strong>주요 역할</strong><br>
+                • 다중 Re-ranker를 판단 신호로 통합하고, 유전 알고리즘으로 가중치 정책을 자동 조정하는 RAG 의사결정 파이프라인 설계<br><br>
+                
+                <strong>주요 성과</strong><br>
+                • <span class="project-highlight">기존 SOTA 리랭커 대비 정답률 3.81%p 향상</span><br>
+                • 708개 문항 단위에서 안정적인 응답 품질 확보
+              </p>
+            </div>
+          </details>
+
+        </main>
+      </div>
+    </div>
+  
+</body></html>

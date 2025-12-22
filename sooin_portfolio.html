@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light" style=""><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>윤수인 포트폴리오</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+      body {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 60px;
+        font-family: 'Pretendard', sans-serif;
+        color: #333;
+        background-color: white;
+        line-height: 1.5;
+      }
+
+      @media print {
+        body {
+          padding: 20px;
+          background-color: white;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        
+        .project-section {
+          page-break-inside: avoid;
+          break-inside: avoid;
+        }
+        
+        h1, .portfolio-header {
+          page-break-after: avoid;
+        }
+        
+        .project-section:first-of-type {
+          page-break-before: avoid;
+        }
+        
+        /* 배경색 강제 출력 */
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+        
+        /* 폰트 강제 적용 */
+        body, div, p, span, li {
+          font-family: 'Pretendard', 'Malgun Gothic', sans-serif !important;
+        }
+        
+        /* 불필요한 하이라이트 제거 */
+        span[style*="background-color: rgb(254, 215, 170)"] {
+          background-color: transparent !important;
+        }
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-weight: 700;
+        margin-top: 1.5em;
+        margin-bottom: 0.5em;
+        color: #111;
+      }
+
+      h1 {
+        font-size: 2.2rem;
+        border-bottom: 3px solid #333;
+        padding-bottom: 12px;
+        margin-top: 0;
+        margin-bottom: 8px;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        margin-top: 30px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .project-section {
+        background: white;
+        padding: 30px;
+        border-radius: 0;
+        box-shadow: none;
+        margin-bottom: 30px;
+        border: none;
+      }
+
+      .project-header-1 {
+        color: #2563eb;
+        border-bottom: 2px solid #2563eb;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+      }
+
+      .project-header-2 {
+        color: #7c3aed;
+        border-bottom: 2px solid #7c3aed;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+      }
+
+      .executive-summary {
+        padding: 15px 20px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        font-size: 0.95rem;
+      }
+
+      .bg-blue-light {
+        background-color: #eff6ff;
+        border-left: 5px solid #2563eb;
+      }
+      .bg-purple-light {
+        background-color: #f5f3ff;
+        border-left: 5px solid #7c3aed;
+      }
+      .bg-red-light {
+        background-color: #fef2f2;
+        border-left: 5px solid #ef4444;
+      }
+      .bg-green-light {
+        background-color: #f0fdf4;
+        border-left: 5px solid #22c55e;
+      }
+
+      .summary-title {
+        font-weight: 700;
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+        display: block;
+      }
+
+      .metric-highlight {
+        font-weight: 700;
+        color: #d32f2f;
+      }
+
+      /* Visualization Styles */
+      .syntax-viz-container {
+        margin: 20px 0;
+        padding: 15px;
+        background: #f8fafc;
+        border-radius: 6px;
+        border: 1px solid #e2e8f0;
+        overflow-x: visible;
+      }
+
+      .syntax-grid {
+        display: grid;
+        grid-template-columns: repeat(9, minmax(70px, 1fr));
+        gap: 0;
+        width: fit-content;
+        max-width: 100%;
+      }
+
+      .viz-label {
+        font-size: 0.85rem;
+        color: #64748b;
+        margin-bottom: 8px;
+        font-weight: 600;
+        display: block;
+      }
+
+      /* Level 1: Morphemes */
+      .morpheme-row {
+        display: contents;
+      }
+
+      .morpheme-box {
+        height: 60px;
+        background: white;
+        border: 1px solid #cbd5e1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-right: -1px; /* collapse borders */
+        position: relative;
+        z-index: 1;
+      }
+
+      .morpheme-box:first-child {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+      }
+      .morpheme-box:last-child {
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+      }
+
+      .pos-tag {
+        font-size: 0.7rem;
+        color: #64748b;
+        font-weight: 400;
+        margin-top: 2px;
+      }
+
+      /* Level Gap */
+      .level-gap {
+        height: 18px;
+        grid-column: 1 / -1;
+      }
+
+      /* Level 2: Phrases (Thin) */
+      .phrase-bar {
+        height: 26px; /* THIN */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 13px;
+        font-weight: 500;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        margin: 0 2px;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+
+      /* Level 3: Clauses (Same as Phrases) */
+      .clause-bar {
+        height: 26px; /* SAME AS PHRASES */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 13px;
+        font-weight: 600;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        margin: 0 2px;
+      }
+
+      /* Colors */
+      .color-obj {
+        background-color: #9b87f5;
+      }
+      .color-verb {
+        background-color: #f87171;
+      }
+      .color-subj {
+        background-color: #fb923c;
+      }
+      .color-adj {
+        background-color: #84cc16;
+      }
+      .color-pred {
+        background-color: #f43f5e;
+      }
+
+      .color-dep-clause {
+        background-color: #60a5fa;
+      }
+      .color-main-clause {
+        background-color: #4ade80;
+      }
+
+      /* Other Styles */
+      .grid-2-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-top: 15px;
+      }
+
+      .info-box {
+        padding: 15px;
+        border-radius: 6px;
+      }
+
+      .pipeline-step {
+        background: white;
+        border: 1px solid #e2e8f0;
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+        flex: 1;
+        position: relative;
+      }
+
+      .pipeline-container {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin: 20px 0;
+        overflow-x: auto;
+      }
+
+      .arrow-right {
+        color: #94a3b8;
+        font-size: 1.2rem;
+      }
+
+      .tech-stack {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+
+      .tech-badge {
+        background: #f1f5f9;
+        color: #475569;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        border: 1px solid #e2e8f0;
+      }
+
+      /* Chart Styles */
+      .chart-container {
+        margin: 30px 0;
+      }
+
+      .chart-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+
+      .chart-label {
+        width: 180px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: #334155;
+      }
+
+      .chart-bar-bg {
+        flex: 1;
+        background: #f1f5f9;
+        height: 22px;
+        border-radius: 4px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .chart-bar-fill {
+        height: 100%;
+        background: #cbd5e1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 8px;
+        color: white;
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+
+      .bar-highlight {
+        background: #7c3aed;
+      }
+      .bar-medium {
+        background: #a78bfa;
+      }
+
+      .chart-value {
+        margin-left: 10px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        width: 50px;
+        color: #334155;
+      }
+
+      .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin-bottom: 30px;
+      }
+
+      .metric-card {
+        background: #f5f3ff;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        border: 1px solid #e9d5ff;
+      }
+
+      .metric-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #7c3aed;
+        margin: 10px 0;
+      }
+
+      .metric-label {
+        font-size: 0.9rem;
+        color: #6b7280;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 0.95rem;
+      }
+
+      th {
+        background: #f8fafc;
+        text-align: left;
+        padding: 12px;
+        border-bottom: 2px solid #e2e8f0;
+        color: #475569;
+      }
+
+      td {
+        padding: 12px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      .dep-tree {
+        font-family: 'Courier New', monospace;
+        background: white;
+        padding: 25px;
+        border-radius: 8px;
+        white-space: pre;
+        overflow-x: auto;
+        border: 2px solid #e2e8f0;
+        font-size: 0.85rem;
+        line-height: 1.6;
+        color: #334155;
+        text-align: left;
+      }
+    </style>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Open%20Sans:wght@400&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Google%20Sans:wght@400&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Noto%20Sans%20JP:wght@400&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&amp;display=swap" rel="stylesheet"></head>
+  <body style="">
+    <div class="portfolio-header" style="margin-bottom: 8px;">
+      <h1 style="text-align: left; margin-bottom: 5px;">Sooin Yoon Portfolio</h1>
+      <p style="font-size: 1rem; color: rgb(102, 102, 102); margin-bottom: 0; margin-top: 5px; text-align: right;"><strong>AI Engineer&nbsp;</strong></p>
+    </div>
+
+    <!-- Project 1 -->
+    <div class="project-section">
+      <div style="margin-bottom: 25px;">
+        <div style="display: inline-block; background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); color: white; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; margin-bottom: 12px; letter-spacing: 0.5px;">
+          PROJECT #1
+        </div>
+        <h2 style="font-size: 1.8rem; color: #1e40af; margin: 8px 0 6px 0; font-weight: 800; line-height: 1.3;">Automaed Grammer Explanatiopn System for Korean Language Learners</h2>
+        <p style="font-size: 1.05rem; color: #64748b; margin: 0; font-weight: 500;">외국인 대상 한국어 문법 설명 자동 생성 시스템</p>
+      </div>
+
+      <div class="executive-summary bg-blue-light">
+        <span style="font-size: 15px;">프로젝트 개요</span>
+        <p style="margin: 0"><span style="font-size: 15px;">외국인 학습자에게 한국어 문장 구조를 설명하기 위한 자동 시각화 시스템</span></p><p style="margin: 0"><span style="font-size: 15px;">형태소분석 ~ 구문분석까지 파이프라인을 구축하여 3단계 Bar Chart를 1초 만에 생성</span></p>
+      </div>
+
+      <div class="grid-2-col" style="margin-bottom: 30px">
+        <div class="info-box bg-red-light">
+          <h3 style="font-size: 1.1rem; color: #b91c1c; margin-top: 0"><span style="font-size: 15px;">🔴 문제 정의</span></h3>
+          <ul style="margin-bottom: 0; padding-left: 20px; font-size: 0.95rem">
+            <li><span style="font-size: 15px;">언어학 전공자가 한 문장에 분석에 최소 20분 소요</span></li>
+            <li><span style="font-size: 15px;">형태소 
+  
+    </span><!--StartFragment--><span style="color: rgb(65, 84, 98); font-family: Pretendard, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(254, 242, 242); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;">→</span><!--EndFragment--><span style="font-size: 15px;">&nbsp; 품사 
+  
+    </span><!--StartFragment--><span style="color: rgb(65, 84, 98); font-family: Pretendard, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(254, 242, 242); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;">→</span><!--EndFragment--><span style="font-size: 15px;">&nbsp; 구문 분석&nbsp;
+  
+    </span><!--StartFragment--><span style="color: rgb(65, 84, 98); font-family: Pretendard, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(254, 242, 242); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;">→</span><!--EndFragment--><span style="font-size: 15px;">&nbsp; 시각화 수작업 필요&nbsp;</span></li>
+            <li><span style="font-size: 15px;">교육 콘첸츠 제작 효율 저하&nbsp;</span></li>
+          </ul>
+        </div>
+        <div class="info-box bg-green-light">
+          <h3 style="font-size: 1.1rem; color: #15803d; margin-top: 0"><span style="font-size: 15px;">🟢 프로젝트 목표</span></h3>
+          <ul style="margin-bottom: 0; padding-left: 20px; font-size: 0.95rem">
+            <li><span style="font-size: 15px;">형태소 기반 구문분석기를 활용한 </span><strong><span style="font-size: 15px;">Span 단위 자동 추출 엔진</span></strong><span style="font-size: 15px;"> 개발</span></li>
+            <li><span style="font-size: 15px;">교육용 문법 설명에 즉시 활용 가능한 3단계 바 차트 자동 생성</span></li>
+            <li><span style="font-size: 15px;">처리속도 20분 
+  
+    </span><!--StartFragment--><span style="color: rgb(35, 36, 37); font-family: &quot;Noto Sans SC&quot;, &quot;Noto Sans JP&quot;, &quot;Noto Sans KR&quot;, &quot;Source Han Sans JP&quot;, system-ui, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;">→</span><!--EndFragment--><span style="font-size: 15px;">
+  
+
+1초(1200배)</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 20px; font-size: 1.1rem; margin-bottom: 15px"><span style="font-size: 15px;">🏗️ 기술 파이프라인</span></h3>
+      
+      <!-- Pipeline Diagram -->
+      <div style="display: flex; align-items: center; gap: 8px; margin: 25px 0; padding: 0; background: transparent;">
+        
+        <!-- Step 1: Kiwi -->
+        <div style="flex: 1; text-align: center;">
+          <div style="background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 100%); border: 2px solid #2563eb; border-radius: 12px; padding: 20px 16px; box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);">
+            <div style="background: #2563eb; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-weight: 700; font-size: 1rem;"><span style="font-size: 15px;">1</span></div>
+            <div style="font-weight: 700; color: #1e40af; font-size: 15px; margin-bottom: 6px;"><span style="font-size: 15px;">형태소 분석(Kiwi)</span></div>
+            <div style="font-size: 14px; color: #64748b; line-height: 1.4;"><span style="font-size: 15px;">문장 → 형태소 토큰화
+            </span></div>
+          </div>
+        </div>
+
+        <!-- Arrow -->
+        <div style="color: #94a3b8; font-size: 1.5rem; font-weight: 300;"><span style="font-size: 15px;">→</span></div>
+
+        <!-- Step 2: BERT -->
+        <div style="flex: 1; text-align: center;">
+          <div style="background: linear-gradient(135deg, #fed7aa 0%, #ffedd5 100%); border: 2px solid #f97316; border-radius: 12px; padding: 20px 16px; box-shadow: 0 2px 8px rgba(249, 115, 22, 0.15);">
+            <div style="background: #f97316; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-weight: 700; font-size: 1rem;"><span style="font-size: 15px;">2</span></div>
+            <div style="font-weight: 700; color: #c2410c; font-size: 15px; margin-bottom: 6px;"><span style="font-size: 15px;">품사·영어 뜻 태깅</span></div>
+            <div style="font-size: 14px; color: #64748b; line-height: 1.4;"><span style="font-size: 14px;">
+              </span><span style="font-size: 14px;">Fine-tuned BERT · 문맥 기반 교정</span><span style="font-size: 14px;">
+            </span></div>
+          </div>
+        </div>
+
+        <!-- Arrow -->
+        <div style="color: #94a3b8; font-size: 1.5rem; font-weight: 300;"><span style="font-size: 15px;">→</span></div>
+
+        <!-- Step 3: SuPar -->
+        <div style="flex: 1; text-align: center;">
+          <div style="background: linear-gradient(135deg, #bfdbfe 0%, #dbeafe 100%); border: 2px solid #1e40af; border-radius: 12px; padding: 20px 16px; box-shadow: 0 2px 8px rgba(30, 64, 175, 0.15);">
+            <div style="background: #1e40af; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-weight: 700; font-size: 1rem;"><span style="font-size: 15px;">3</span></div>
+            <div style="font-weight: 700; color: #1e3a8a; font-size: 15px; margin-bottom: 6px;"><span style="font-size: 15px;">구문 분석(SuPar)</span></div>
+            <div style="font-size: 14px; color: #64748b; line-height: 1.4;"><span style="font-size: 15px;">
+              head-dependent 트리
+            </span></div>
+          </div>
+        </div>
+
+        <!-- Arrow -->
+        <div style="color: #94a3b8; font-size: 1.5rem; font-weight: 300;"><span style="font-size: 15px;">→</span></div>
+
+        <!-- Step 4: Span Extraction -->
+        <div style="flex: 1; text-align: center;">
+          <div style="background: linear-gradient(135deg, #bbf7d0 0%, #dcfce7 100%); border: 2px solid #16a34a; border-radius: 12px; padding: 20px 16px; box-shadow: 0 2px 8px rgba(22, 163, 74, 0.15);">
+            <div style="background: #16a34a; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-weight: 700; font-size: 1rem;"><span style="font-size: 15px;">4</span></div>
+            <div style="font-weight: 700; color: #15803d; font-size: 15px; margin-bottom: 6px;"><span style="font-size: 15px;">구/절 스팬 추출</span></div>
+            <div style="font-size: 14px; color: #64748b; line-height: 1.4;"><span style="font-size: 14px;">
+              </span><span style="font-size: 15px;">Rule-based 추출 및 의존 트리 출력</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Detailed Explanation -->
+      <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 20px; margin-top: 20px;">
+        <h4 style="font-size: 1rem; margin-top: 0; margin-bottom: 15px; color: #334155;"><span style="font-size: 15px;">📋</span><span style="font-size: 12px;"> </span><span style="font-size: 15px;">기술 상세</span></h4>
+        
+        <div style="margin-bottom: 12px;">
+          <div style="display: flex; align-items: flex-start; gap: 8px;">
+            <div style="background: #2563eb; color: white; min-width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.8rem; margin-top: 2px;"><span style="font-size: 15px;">1</span></div>
+            <div style="flex: 1;">
+              <strong style="color: #2563eb; font-size: 0.95rem;"><span style="font-size: 15px;">형태소 분석 (Morpheme Segmentation)</span></strong>
+              
+              <div style="margin-top: 10px; padding: 12px; background: #dbeafe; border-left: 3px solid #2563eb; border-radius: 4px;">
+                <div style="font-weight: 600; color: #1e40af; font-size: 0.9rem; margin-bottom: 8px;"><span style="font-size: 15px;">📌 기술적 배경</span></div>
+                
+                <div style="margin-bottom: 8px;">
+                  <div style="font-weight: 600; color: #334155; font-size: 0.85rem; margin-bottom: 4px;"><span style="font-size: 15px;">• 어절 단위의 한계</span></div>
+                  <div style="font-size: 0.8rem; color: #475569; line-height: 1.5; margin-left: 10px;"><span style="font-size: 15px;">
+                    조사/어미가 어절에 결합되어 세밀한 구문 관계 분석 불가
+                  </span></div>
+                </div>
+                
+                <div style="margin-bottom: 8px;">
+                  <div style="font-weight: 600; color: #334155; font-size: 0.85rem; margin-bottom: 4px;"><span style="font-size: 15px;">• 형태소 단위 처리의 필요성</span></div>
+                  <div style="font-size: 0.8rem; color: #475569; line-height: 1.5; margin-left: 10px;"><span style="font-size: 15px;">
+                    KLUE-DP(데이터셋)를 형태소 단위로 변환하여 활용&nbsp;</span></div><div style="font-size: 0.8rem; color: #475569; line-height: 1.5; margin-left: 10px;"><span style="color: rgb(100, 116, 139); font-size: 15px;">&nbsp; &nbsp; &nbsp;기존:</span><span style="font-size: 15px;"> 어절 단위 의존 구문 분석&nbsp;</span></div><div style="font-size: 0.8rem; color: #475569; line-height: 1.5; margin-left: 10px;">&nbsp; &nbsp; &nbsp;<span style="color: rgb(37, 99, 235); font-size: 15px;">개선:</span><span style="font-size: 15px;"> 형태소 단위로 변환 후 세밀한 문법 분석 가능</span></div>
+                </div>
+              </div>
+              
+              <div style="margin-top: 10px; padding: 12px; background: #dbeafe; border-left: 3px solid #2563eb; border-radius: 4px;">
+                <div style="font-weight: 600; color: #1e40af; font-size: 0.9rem; margin-bottom: 8px;"><span style="font-size: 15px;">🔧 기술적 특징</span></div>
+                
+                <div style="margin-bottom: 8px;">
+                  <div style="font-weight: 600; color: #334155; font-size: 0.85rem; margin-bottom: 4px;"><span style="font-size: 15px;">• Kiwi 형태소 분석기</span></div>
+                  <div style="font-size: 0.8rem; color: #475569; line-height: 1.5; margin-left: 10px;"><span style="font-size: 15px;">
+                    한국어 어절을 형태소 단위로 분할</span><br><span style="font-size: 15px;">
+                    예: "장마철이라" → ["장마철"/NNG, "이"/VCP, "라"/EC]
+                  </span></div>
+                </div>
+                
+                <div style="margin-bottom: 0;">
+                  <div style="font-weight: 600; color: #334155; font-size: 0.85rem; margin-bottom: 4px;"><span style="font-size: 15px;">• 높은 분할 정확도</span></div>
+                  <div style="font-size: 0.8rem; color: #475569; line-height: 1.5; margin-left: 10px;"><span style="font-size: 15px;">
+                    대규모 말뭉치 기반 학습 모델로 신뢰성 확보
+                  </span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 12px;">
+          <div style="display: flex; align-items: flex-start; gap: 8px;">
+            <div style="background: #f97316; color: white; min-width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.8rem; margin-top: 2px;"><span style="font-size: 15px;">2</span></div>
+            <div style="flex: 1;">
+              <strong style="color: #f97316; font-size: 0.95rem;"><span style="font-size: 15px;">품사 태깅 &amp; 영어 Glossing</span></strong>
+              
+              <div style="margin-top: 10px; padding: 12px; background: #fed7aa; border-left: 3px solid #f97316; border-radius: 4px;">
+                <div style="font-weight: 600; color: #c2410c; font-size: 0.9rem; margin-bottom: 8px;"><span style="font-size: 15px;">🎯 핵심 목적 (왜 BERT를 학습시켰는가?)</span></div>
+                
+                <div style="margin-bottom: 10px;">
+                  <div style="font-weight: 600; color: #334155; font-size: 0.85rem; margin-bottom: 4px;"><span style="font-size: 15px;">• Kiwi 형태소 분석기 출력 형태소와 품사를 그대로 사용하지 않음</span></div>
+                  <div style="font-size: 0.8rem; color: #475569; line-height: 1.5; margin-left: 10px;"><span style="font-size: 15px;">
+                    Kiwi는 형태소 분할은 잘 하지만, 품사 태깅에서 문맥을 잘 고려하지 못함</span></div><div style="font-size: 0.8rem; color: #475569; line-height: 1.5; margin-left: 10px;"><span style="font-size: 15px;">&nbsp; &nbsp;예) 복합 형태소, 신조어/전문용어&nbsp;</span></div><div style="font-size: 0.8rem; color: #475569; line-height: 1.5; margin-left: 10px;"><span style="font-size: 15px;">
+                    동일 형태소가 문맥에 따라 다른 품사로 쓰이는 중의성 문제 발생</span></div><div style="font-size: 0.8rem; color: #475569; line-height: 1.5; margin-left: 10px;">&nbsp;
+  
+    <!--StartFragment--><span style="color: rgb(71, 85, 105); font-family: Pretendard, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(254, 215, 170); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;">→ 학습 후, </span><span style="color: rgb(71, 85, 105); font-family: Pretendard, sans-serif; font-size: 14.4px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(254, 215, 170); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;"><b><span style="font-size: 15px;">96.36%</span></b></span><span style="color: rgb(71, 85, 105); font-family: Pretendard, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(254, 215, 170); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;"> 달성(KLUE_DP dev set기준)</span><!--EndFragment--></div></div><div style="margin-bottom: 0;"><div style="font-size: 0.8rem; color: #475569; line-height: 1.5; margin-left: 10px;">
+                  </div>
+                </div>
+              </div>
+              
+              <div style="margin-top: 10px; padding: 12px; background: #fed7aa; border-left: 3px solid #f97316; border-radius: 4px;">
+                <div style="font-weight: 600; color: #c2410c; font-size: 0.9rem; margin-bottom: 8px;"><span style="font-size: 15px;">🔄 BERT 재처리 과정(</span><span style="color: rgb(133, 30, 23); font-size: 15px;">Kiwi
+  
+    </span><!--StartFragment--><span style="color: rgb(133, 30, 23); font-family: Pretendard, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(254, 215, 170); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;">→</span><span style="color: rgb(133, 30, 23); font-size: 15px;">BERT 재처리 </span>
+  
+    <!--StartFragment--><span style="color: rgb(133, 30, 23); font-family: Pretendard, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(254, 215, 170); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;">→</span><!--EndFragment-->
+  
+
+<span style="color: rgb(133, 30, 23); font-size: 15px;"> 최</span><span style="color: rgb(133, 30, 23); font-size: 15px;">종 품사 태그</span><span style="font-size: 15px;">)</span></div>
+                
+                <div style="font-size: 0.8rem; color: #475569; line-height: 1.5; margin-left: 10px;"><span style="font-size: 15px;">
+                  ① Kiwi 결과(형태소 + 품사)를 BERT 입력으로 변환&nbsp;</span></div><div style="font-size: 0.8rem; color: #475569; line-height: 1.5; margin-left: 10px;"><span style="font-size: 15px;">② Self-attention으로 전체 문장 맥락 파악&nbsp;</span></div><div style="font-size: 0.8rem; color: #475569; line-height: 1.5; margin-left: 10px;"><span style="font-size: 15px;">③ 각 형태소에 대해 43개 세종 품사 중 문맥상 가장 적합한 태그 선택&nbsp;</span></div><div style="font-size: 0.8rem; color: #475569; line-height: 1.5; margin-left: 10px;"><span style="font-size: 15px;">④ 최종 품사 태그 출력 (Kiwi 품사 교정 완료)
+                </span></div>
+              </div>
+              
+              <div style="margin-top: 10px; padding: 12px; background: #fed7aa; border-left: 3px solid #f97316; border-radius: 4px;">
+                <div style="font-weight: 600; color: #c2410c; font-size: 0.9rem; margin-bottom: 8px;"><span style="font-size: 15px;">🌐 영어 뜻(Glossing) 태깅</span></div>
+                
+                <div style="margin-bottom: 8px;">
+                  <div style="font-weight: 600; color: #334155; font-size: 0.85rem; margin-bottom: 4px;">&nbsp;<!--StartFragment--><span style="color: rgb(51, 65, 85); font-family: Pretendard, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 600; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(254, 215, 170); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;">•</span><!--EndFragment--><span style="font-size: 15px;">
+  
+
+ RoBERTa Cross Encoder fine-tunning(문맥 기반 최적 gloss 선택)</span></div><div style="font-weight: 600; color: #334155; font-size: 0.85rem; margin-bottom: 4px;">
+  
+    <!--StartFragment--><span style="color: rgb(71, 85, 105); font-family: Pretendard, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(254, 215, 170); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;">&nbsp; &nbsp;형태소-품사-gloss pair 구축 후 fine-tunning&nbsp;</span><!--EndFragment--></div>
+                  <div style="font-size: 0.8rem; color: #475569; line-height: 1.5; margin-left: 10px;"><span style="font-size: 15px;">&nbsp;여러 gloss 후보 중 문맥에 가장 적합한 것을 스코어링(</span><span style="font-size: 15px;">다의어의 문맥에 맞는 정확한 의미 선택)</span></div></div><div style="margin-bottom: 0;"><div style="font-size: 0.8rem; color: #475569; line-height: 1.5; margin-left: 10px;"><span style="font-size: 15px;">&nbsp; &nbsp;예: "배" → 문맥 분석 → "ship" / "stomach" / "pear" 중 선택</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 12px;">
+          <div style="display: flex; align-items: flex-start; gap: 8px;">
+            <div style="background: #1e40af; color: white; min-width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.8rem; margin-top: 2px;"><span style="font-size: 15px;">3</span></div>
+            <div style="flex: 1;">
+              <strong style="color: #1e40af; font-size: 0.95rem;"><span style="font-size: 15px;">SuPar 기반 형태소 단위 구문 분석</span></strong>
+              
+              <div style="margin-top: 10px; padding: 12px; background: #bfdbfe; border-left: 3px solid #1e40af; border-radius: 4px;">
+                <div style="font-weight: 600; color: #1e3a8a; font-size: 0.9rem; margin-bottom: 8px;"><span style="font-size: 15px;">📖 의존 구문 분석이란?</span></div>
+                
+                <div style="font-size: 0.8rem; color: #475569; line-height: 1.5; margin-left: 10px;"><span style="font-size: 15px;">
+                  문장 내 단어(형태소) 간의 </span><strong><span style="font-size: 15px;">문법적 관계</span></strong><span style="font-size: 15px;">를 파악하는 작업</span><br><span style="font-size: 15px;">
+                  • 각 형태소가 </span><strong><span style="font-size: 15px;">어느 형태소에 의존</span></strong><span style="font-size: 15px;">하는지 (head)</span><br><span style="font-size: 15px;">
+                  • </span><strong><span style="font-size: 15px;">어떤 문법적 관계</span></strong><span style="font-size: 15px;">인지 (relation: 주어, 목적어 등)
+                </span></div>
+              </div>
+              
+              <div style="margin-top: 10px; padding: 12px; background: #bfdbfe; border-left: 3px solid #1e40af; border-radius: 4px;">
+                <div style="font-weight: 600; color: #1e3a8a; font-size: 0.9rem; margin-bottom: 8px;"><span style="font-size: 15px;">🎯 KLUE-DP 의존 관계 체계 선택</span></div>
+                
+                <div style="margin-bottom: 0;">
+                  <div style="font-weight: 600; color: #334155; font-size: 0.85rem; margin-bottom: 4px;"><span style="font-size: 15px;">• 선택 이유</span></div>
+                  <div style="font-size: 0.8rem; color: #475569; line-height: 1.5; margin-left: 10px;"><span style="font-size: 15px;">
+                    UD(Universal Dependencies): 다국어에서 많이 쓰이지만, 한국어 특수성(조사·어미 결합) 반영 제한적&nbsp;</span></div><div style="font-size: 0.8rem; color: #475569; line-height: 1.5; margin-left: 10px;">&nbsp;                    <strong><span style="font-size: 15px;">→ KLUE-DP 선택:</span></strong>&nbsp;</div><div style="font-size: 0.8rem; color: #475569; line-height: 1.5; margin-left: 10px;"><span style="font-size: 15px;">&nbsp;• 한국어 특화: 조사, 어미 등 한국어 고유 문법 요소를 세밀하게 구분
+                    &nbsp;</span></div><div style="font-size: 0.8rem; color: #475569; line-height: 1.5; margin-left: 10px;"><span style="font-size: 15px;">&nbsp;• 형태소 단위: 교착어인 한국어 특성에 맞는 형태소 단위 분석
+                    &nbsp;</span></div><div style="font-size: 0.8rem; color: #475569; line-height: 1.5; margin-left: 10px;"><span style="font-size: 15px;">&nbsp;• 풍부한 기능 태그: NP_SBJ(주어), NP_OBJ(목적어), NP_AJT(부가어) 등 36종 관계
+                  </span></div>
+                </div>
+              </div>
+              
+              <div style="margin-top: 10px; padding: 12px; background: #bfdbfe; border-left: 3px solid #1e40af; border-radius: 4px;">
+                <div style="font-weight: 600; color: #1e3a8a; font-size: 0.9rem; margin-bottom: 8px;"><span style="font-size: 15px;">🏗️ SuPar 모델 아키텍처</span></div>
+                
+                <div style="font-size: 0.75rem; color: #475569; line-height: 1.6; margin-left: 10px; font-family: 'Courier New', monospace; background: white; padding: 10px; border-radius: 4px;"><span style="font-size: 15px;">
+입력: 형태소 시퀀스 + 품사 태그</span><br><span style="font-size: 15px;">
+   ↓</span><br>
+<strong><span style="font-size: 15px;">KLUE RoBERTa Encoder</span></strong><span style="font-size: 15px;"> (문맥 임베딩)</span><br><span style="font-size: 15px;">
+   ↓</span><br>
+<strong><span style="font-size: 15px;">POS Tag Embeddings</span></strong><span style="font-size: 15px;"> (품사 정보 결합)</span><br><span style="font-size: 15px;">
+   ↓</span><br>
+<strong><span style="font-size: 15px;">LSTM Encoder</span></strong><span style="font-size: 15px;"> (순차 정보 인코딩)</span><br><span style="font-size: 15px;">
+   ↓</span><br>
+<strong><span style="font-size: 15px;">Biaffine Attention</span></strong><span style="font-size: 15px;"> (의존 관계 예측)</span><br><span style="font-size: 15px;">
+   ↓</span><br><span style="font-size: 15px;">
+출력: 의존 관계 (head, relation)
+                </span></div>
+              </div>
+              
+              <div style="margin-top: 10px; padding: 12px; background: #bfdbfe; border-left: 3px solid #1e40af; border-radius: 4px;">
+                <div style="font-weight: 600; color: #1e3a8a; font-size: 0.9rem; margin-bottom: 8px;"><span style="font-size: 15px;">🌲 의존 구문 분석 트리</span></div>
+                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 8px; margin-left: 10px;"><span style="font-size: 15px;">형태소 단위 의존 관계 → ROOT를 중심으로 문법적 역할 식별</span></div>
+                
+                <div style="font-size: 0.75rem; color: #475569; line-height: 1.6; margin-left: 10px; font-family: 'Courier New', monospace; background: white; padding: 10px; border-radius: 4px; white-space: pre;"><span style="font-size: 15px;">어요 (EF) [root]
+├─ [VP] 내리 (VV)
+│  ├─ [VNP] 라 (EC)
+│  │  ├─ [NP_AJT] 요즘 (NNG)        (these days)
+│  │  ├─ [morph] 장마철 (NNG)       (rainy season)
+│  │  └─ [morph] 이 (VCP)           (be)
+│  ├─ [NP_SBJ] 가 (JKS)
+│  │  └─ [morph] 비 (NNG)           (rain)
+│  └─ [AP] 많이 (MAG)                (a.lot)</span></div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 0;">
+          <div style="display: flex; align-items: flex-start; gap: 8px;">
+            <div style="background: #16a34a; color: white; min-width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.8rem; margin-top: 2px;"><span style="font-size: 15px;">4</span></div>
+            <div style="flex: 1;">
+              <strong style="color: #16a34a; font-size: 17px; font-weight: 700;"><span style="font-size: 15px;">구/절 스팬 추출</span></strong>
+              
+              <div style="margin-top: 10px; padding: 12px; background: #d1fae5; border-left: 3px solid #16a34a; border-radius: 4px;">
+                <div style="font-weight: 600; color: #15803d; font-size: 0.9rem; margin-bottom: 8px;"><span style="font-size: 15px;">🎯 스팬 추출 방식</span></div>
+                
+                <div style="font-size: 0.8rem; color: #475569; line-height: 1.6; margin-left: 10px;"><span style="font-size: 15px;">
+                  SuPar의 의존 구문 분석 트리와 형태소 태그를 활용하여 </span><strong><span style="font-size: 15px;">Rule-based 알고리즘</span></strong><span style="font-size: 15px;">으로 문장의 </span><strong><span style="font-size: 15px;">의미 단위(구/절)</span></strong><span style="font-size: 15px;">를 자동으로 추출</span></div><div style="font-size: 0.8rem; color: #475569; line-height: 1.6; margin-left: 10px;"><span style="font-size: 15px;">
+                  • </span><strong><span style="font-size: 15px;">구(Phrase)</span></strong><span style="font-size: 15px;">: 주어구, 목적어구, 부사구 등</span></div><div style="font-size: 0.8rem; color: #475569; line-height: 1.6; margin-left: 10px;"><span style="font-size: 15px;">
+                  • </span><strong><span style="font-size: 15px;">절(Clause)</span></strong><span style="font-size: 15px;">: 주절, 종속절, 관형절 등</span></div>
+              </div>
+              
+              <div style="margin-top: 10px; padding: 12px; background: #d1fae5; border-left: 3px solid #16a34a; border-radius: 4px;">
+                <div style="font-weight: 600; color: #15803d; font-size: 0.9rem; margin-bottom: 8px;"><span style="font-size: 15px;">📊 추출 결과 예시</span></div>
+                <div style="font-size: 0.75rem; color: #475569; line-height: 1.6; font-family: 'Courier New', monospace; background: white; padding: 10px; border-radius: 4px; margin-left: 10px;"><span style="font-size: 15px;">
+문장: "요즘 장마철이라 비가 많이 내려요"</span><br>
+<br>
+<strong style="color: #16a34a;"><span style="font-size: 15px;">구(Phrase) 추출:</span></strong><br><span style="font-size: 15px;">
+  • 부사구(Adverb): [요즘]</span><br><span style="font-size: 15px;">
+  • 서술구(Verb Phrase): [장마철, 이, 라]</span><br><span style="font-size: 15px;">
+  • 주어구(Subject Phrase): [비, 가]</span><br><span style="font-size: 15px;">
+  • 부사구(Adverb): [많이]</span><br><span style="font-size: 15px;">
+  • 서술구(Verb Phrase): [내리, 어요]</span><br>
+<br>
+<strong style="color: #15803d;"><span style="font-size: 15px;">절(Clause) 추출:</span></strong><br><span style="font-size: 15px;">
+  • 종속절(Subordinate): [요즘, 장마철, 이, 라]</span><br><span style="font-size: 15px;">
+  • 주절(Main Clause): [비, 가, 많이, 내리, 어요]
+                </span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div style="background: white; padding: 25px; border-radius: 0; border: none; margin: 20px auto; max-width: 700px;">
+        <h3 style="font-size: 1.1rem; margin-top: 0; margin-bottom: 18px; color: #111; border-left: 4px solid #2563eb; padding-left: 10px;">
+          <span style="font-size: 17px;">🎯 핵심 시각화: 바 형태 구문 분석</span>
+        </h3>
+        <p style="margin-bottom: 15px; font-size: 0.9rem; color: #666">
+          <strong><span style="font-size: 17px;">예문:</span></strong><span style="font-size: 17px;"> "요즘 장마철이라 비가 많이 내려요"</span>
+        </p>
+
+      <div class="syntax-viz-container" style="margin: 0;">
+        <!-- Level 1 Label -->
+        <span style="font-size: 17px;">Level 1: 형태소 (Morphemes) + Gloss + POS</span>
+        <div class="syntax-grid">
+          <!-- Level 1 Boxes -->
+          <div class="morpheme-box">
+            <span style="font-size: 15px;">요즘</span>
+            <div style="font-size: 0.75rem; color: #3b82f6; margin-top: 2px"><span style="font-size: 11px;">These days</span></div>
+            <div class="pos-tag"><span style="font-size: 15px;">NNG</span></div>
+          </div>
+          <div class="morpheme-box">
+            <span style="font-size: 15px;">장마철</span>
+            <div style="font-size: 0.75rem; color: #3b82f6; margin-top: 2px"><span style="font-size: 10px;">Rainy season</span></div>
+            <div class="pos-tag"><span style="font-size: 15px;">NNG</span></div>
+          </div>
+          <div class="morpheme-box">
+            <span style="font-size: 15px;">이</span>
+            <div style="font-size: 0.75rem; color: #3b82f6; margin-top: 2px"><span style="font-size: 15px;">be</span></div>
+            <div class="pos-tag"><span style="font-size: 15px;">VCP</span></div>
+          </div>
+          <div class="morpheme-box">
+            <span style="font-size: 15px;">라</span>
+            <div style="font-size: 0.75rem; color: #3b82f6; margin-top: 2px"><span style="font-size: 15px;">because</span></div>
+            <div class="pos-tag"><span style="font-size: 15px;">EC</span></div>
+          </div>
+          <div class="morpheme-box"><span style="font-size: 12px;">
+            </span><span style="font-size: 15px;">비</span><span style="font-size: 12px;">
+            </span><div style="font-size: 0.75rem; color: #3b82f6; margin-top: 2px"><span style="font-size: 15px;">rain</span></div>
+            <div class="pos-tag"><span style="font-size: 15px;">NNG</span></div>
+          </div>
+          <div class="morpheme-box"><span style="font-size: 15px;">
+            가
+            </span><div style="font-size: 0.75rem; color: #3b82f6; margin-top: 2px"><span style="font-size: 15px;">SBJ</span></div>
+            <div class="pos-tag"><span style="font-size: 15px;">JKS</span></div>
+          </div>
+          <div class="morpheme-box"><span style="font-size: 17px;">
+            </span><span style="font-size: 15px;">많이</span><span style="font-size: 17px;">
+            </span><div style="font-size: 0.75rem; color: #3b82f6; margin-top: 2px"><span style="font-size: 15px;">much</span></div>
+            <div class="pos-tag"><span style="font-size: 15px;">MAG</span></div>
+          </div>
+          <div class="morpheme-box"><span style="font-size: 17px;">
+            </span><span style="font-size: 15px;">내리</span><span style="font-size: 17px;">
+            </span><div style="font-size: 0.75rem; color: #3b82f6; margin-top: 2px"><span style="font-size: 15px;">fall</span></div>
+            <div class="pos-tag"><span style="font-size: 15px;">VV</span></div>
+          </div>
+          <div class="morpheme-box"><span style="font-size: 17px;">
+            </span><span style="font-size: 15px;">어요</span><span style="font-size: 17px;">
+            </span><div style="font-size: 0.75rem; color: #3b82f6; margin-top: 2px"><span style="font-size: 15px;">POL</span></div>
+            <div class="pos-tag"><span style="font-size: 15px;">EF</span></div>
+          </div>
+
+          <!-- Gap -->
+          <div class="level-gap"></div>
+
+          <!-- Level 2 Label -->
+          <div style="grid-column: 1/-1"><span style="font-size: 17px;">Level 2: 구 (Phrases)</span></div>
+
+          <!-- Level 2 Bars (Thin) -->
+          <div class="phrase-bar color-adj" style="grid-column: 1/2"><span style="font-size: 17px;">Adverb</span></div>
+          <div class="phrase-bar color-pred" style="grid-column: 2/5"><span style="font-size: 17px;">Verb Phrase</span></div>
+          <div class="phrase-bar color-subj" style="grid-column: 5/7"><span style="font-size: 17px;">Subject Phrase</span></div>
+          <div class="phrase-bar color-adj" style="grid-column: 7/8"><span style="font-size: 17px;">Adverb</span></div>
+          <div class="phrase-bar color-pred" style="grid-column: 8/10"><span style="font-size: 17px;">Verb Phrase</span></div>
+
+          <!-- Gap -->
+          <div class="level-gap"></div>
+
+          <!-- Level 3 Label -->
+          <div style="grid-column: 1/-1"><span style="font-size: 17px;">Level 3: 절 (Clauses)</span></div>
+
+          <!-- Level 3 Bars (Medium Thin) -->
+          <div class="clause-bar color-dep-clause" style="grid-column: 1/5"><span style="font-size: 17px;">Subordinate Clause</span></div>
+          <div class="clause-bar color-main-clause" style="grid-column: 5/10"><span style="font-size: 17px;">Main Clause</span></div>
+        </div>
+      </div>
+      
+      <div style="background: white; padding: 25px; border-radius: 0; border: none; margin: 25px auto; max-width: 700px;">
+        <h3 style="font-size: 1.1rem; margin-top: 0; margin-bottom: 18px; color: #111; text-align: center;"><span style="font-size: 15px;">
+          </span><span style="font-size: 17px;">🔹 Agent 관점 설계 및 반복 개선 구조</span><span style="font-size: 15px;">
+        </span></h3>
+        <div style="border-bottom: 2px solid #e5e7eb; margin-bottom: 18px;"></div>
+        
+        <div style="margin-bottom: 18px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <span style="font-size: 17px;">✔️</span>
+            <strong style="font-size: 0.95rem; color: #2563eb;"><span style="font-size: 17px;">설계 배경 (Why Agent-style?)</span></strong>
+          </div>
+          <div style="font-size: 0.85rem; color: #475569; line-height: 1.6; margin-left: 30px;"><span style="font-size: 17px;">
+            본 시스템은 현재 </span><strong><span style="font-size: 17px;">rule-based 파이프라인</span></strong><span style="font-size: 17px;">으로 구현되어 있지만,</span><br><span style="font-size: 17px;">
+            한국어 문법 분석 특성상 </span><strong><span style="font-size: 17px;">단일 실행 결과를 확정하기 어려운 문제 구조</span></strong><span style="font-size: 17px;">를 가짐
+          </span></div>
+        </div>
+        
+        <div style="margin-bottom: 18px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <span style="font-size: 17px;">✔️</span>
+            <strong style="font-size: 0.95rem; color: #2563eb;"><span style="font-size: 17px;">문제의 본질 (Why Loop is Needed)</span></strong>
+          </div>
+          <div style="font-size: 0.85rem; color: #475569; line-height: 1.6; margin-left: 30px;">
+            <strong style="color: #b91c1c;"><span style="font-size: 17px;">형태소 분절 / 품사 태깅 오류</span></strong></div><div style="font-size: 0.85rem; color: #475569; line-height: 1.6; margin-left: 30px;"><span style="font-size: 17px;">
+            → 구문 분석 오류&nbsp;</span></div><div style="font-size: 0.85rem; color: #475569; line-height: 1.6; margin-left: 30px;"><span style="font-size: 17px;">→ 구·절 추출 오류&nbsp;</span></div><div style="font-size: 0.85rem; color: #475569; line-height: 1.6; margin-left: 30px;"><span style="font-size: 17px;">→ 문법 설명 품질 저하로 연쇄 전파&nbsp;</span></div><div style="font-size: 0.85rem; color: #475569; line-height: 1.6; margin-left: 30px;">&nbsp;<strong style="color: #2563eb;"><span style="color: rgb(0, 0, 0); font-size: 17px;">한 번의 분석으로 종료되는 구조는 본질적으로 한계 존재</span></strong>
+          </div>
+        </div>
+        
+        <div style="margin-bottom: 18px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <span style="font-size: 17px;">✔️</span>
+            <strong style="font-size: 0.95rem; color: #2563eb;"><span style="font-size: 17px;">핵심 설계 판단 (Decision Point 정의)</span></strong>
+          </div>
+          <div style="font-size: 0.85rem; color: #475569; line-height: 1.6; margin-left: 30px;"><span style="font-size: 17px;">
+            • </span><strong><span style="font-size: 17px;">형태소 분절 및 품사 태깅</span></strong><span style="font-size: 17px;">을 시스템의 핵심 </span><strong style="color: #7c3aed;"><span style="font-size: 17px;">decision point</span></strong><span style="font-size: 17px;">로 정의</span><br><span style="font-size: 17px;">
+            • 상위 단계(문법 설명) 결과를 하위 분석 단계의 </span><strong style="color: #16a34a;"><span style="font-size: 17px;">피드백 신호</span></strong><span style="font-size: 17px;">로 활용 가능하도록 설계
+          </span></div>
+        </div>
+        
+        <div style="background: #dbeafe; padding: 15px; border-radius: 6px; border-left: 4px solid #2563eb; margin-top: 20px;">
+          <div style="font-weight: 600; color: #1e40af; font-size: 0.95rem; margin-bottom: 10px;"><span style="font-size: 17px;">🔄 Agent-style 반복 개선 구조 (개념)</span></div>
+          <div style="font-size: 0.85rem; color: #334155; line-height: 1.7;">
+            <strong><span style="font-size: 17px;">1.</span></strong><span style="font-size: 17px;"> 형태소 분절 및 품사 태깅 수행</span>
+            <strong><span style="font-size: 17px;">2.</span></strong><span style="font-size: 17px;"> 형태소 단위 구문 분석 및 구/절 추출</span>
+            <strong><span style="font-size: 17px;">3.</span></strong><span style="font-size: 17px;"> 문법 설명 시각화 생성</span>
+            <strong><span style="font-size: 17px;">4.</span></strong><span style="font-size: 17px;"> 설명 품질 및 구조적 일관성 평가</span>
+            <strong><span style="font-size: 17px;">5.</span></strong><span style="font-size: 17px;"> 품질 기준 미달 시:</span>
+            <div style="margin-left: 20px;"><span style="font-size: 17px;">
+              • 형태소 분절 / 품사 태깅 결과 재검토</span><br><span style="font-size: 17px;">
+              • 수정된 분석 결과로 파이프라인 재실행
+            </span></div>
+            <strong><span style="font-size: 17px;">6.</span></strong><span style="font-size: 17px;"> 설명 품질이 수렴할 때까지 반복
+          </span></div>
+        </div>
+        
+        </div><h3 style="font-size: 1.1rem; margin-top: 0; margin-bottom: 18px; color: #111; text-align: center;"><span style="font-size: 17px;">현재 한계 &amp;&nbsp; 내가 제안한 해결책</span></h3>
+        <div style="border-bottom: 2px solid #e5e7eb; margin-bottom: 18px;"></div>
+        
+        <!-- 문제 정의 -->
+        <div style="margin-bottom: 20px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+            <span style="font-size: 15px;">❌</span>
+            <strong style="font-size: 1rem; color: #b91c1c;"><span style="font-size: 15px;">문제: Rule-based 방식은 복잡한 문장에서 정확도 저하</span></strong>
+          </div>
+        </div>
+        
+        <!-- 해결책 -->
+        <div style="margin-bottom: 20px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+            <span style="font-size: 15px;">✅</span>
+            <strong style="font-size: 1rem; color: #15803d;"><span style="font-size: 15px;">해결책: Semi-supervised Learning 전략</span></strong>
+          </div>
+          <div style="font-size: 0.9rem; color: #475569; line-height: 1.7; margin-left: 35px;">
+            <strong><span style="font-size: 15px;">1)</span></strong><span style="font-size: 15px;"> Rule-based로 10,000개 자동 생성</span><br>
+            <strong><span style="font-size: 15px;">2)</span></strong><span style="font-size: 15px;"> 1,000개 수동 검수하여 Gold Data 구축</span><br>
+            <strong><span style="font-size: 15px;">3)</span></strong><span style="font-size: 15px;"> BIO 태깅 기반 Token Classification 모델 학습
+          </span></div>
+        </div>
+        
+        <!-- 기대 효과 -->
+        <div style="margin-bottom: 20px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+            <span style="font-size: 15px;">💡</span>
+            <strong style="font-size: 1rem; color: #7c3aed;"><span style="font-size: 15px;">기대 효과</span></strong>
+          </div>
+          <div style="font-size: 0.9rem; color: #475569; line-height: 1.7; margin-left: 35px;"><span style="font-size: 15px;">
+            • 복잡한 문장 구조에서 정확도 대폭 개선 예상&nbsp;</span></div><div style="font-size: 0.9rem; color: #475569; line-height: 1.7; margin-left: 35px;"><span style="font-size: 15px;">• 수작업 대비 </span><strong style="color: #ef4444;"><span style="font-size: 15px;">90% 비용 절감</span></strong><span style="font-size: 15px;"> (1,000개 검수 vs 10,000개)</span></div><div style="font-size: 0.9rem; color: #475569; line-height: 1.7; margin-left: 35px;"><span style="font-size: 15px;">
+            • 학습된 모델로 새로운 문장 패턴에 대한 자동 학습 가능&nbsp;</span></div>
+        </div>
+        
+        <!-- 현재 상태 -->
+        <div style="background: #f0fdf4; padding: 12px 15px; border-radius: 6px; border-left: 4px solid #22c55e;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 15px;">🔬</span>
+            <strong style="font-size: 0.95rem; color: #15803d;"><span style="font-size: 15px;">현재 상태:</span></strong>
+            <span style="font-size: 15px; color: rgb(71, 85, 105);">Gold Data 구축 중, 실험 설계 중</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 2 -->
+    <div class="project-section">
+      <div style="margin-bottom: 25px;">
+        <div style="display: inline-block; background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%); color: white; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; margin-bottom: 12px; letter-spacing: 0.5px;"><span style="font-size: 15px;">
+          PROJECT #2 (석사 논문)
+        </span></div>
+        <h2 style="font-size: 1.8rem; color: #7c3aed; margin: 8px 0 6px 0; font-weight: 800; line-height: 1.3;"><span style="font-size: 15px;">Genetic Algorithm-based RAG Re-ranker Optimization</span></h2>
+        <p style="font-size: 1.05rem; color: #64748b; margin: 0; font-weight: 500;"><span style="font-size: 15px;">
+          유전 알고리즘 기반 RAG 리랭커 검색 최적화 시스템</span></p>
+      </div>
+
+      <div class="executive-summary bg-purple-light">
+        <span style="font-size: 15px;">프로젝트 개요</span>
+        <p style="margin: 0; line-height: 1.8;"><span style="font-size: 15px;">
+          금융 재무제표 RAG 시스템에서 </span><strong><span style="font-size: 15px;">6가지 Re-ranker</span></strong><span style="font-size: 15px;">를 유전 알고리즘(GA)으로 최적 조합하여 
+          검색 정확도를&nbsp;</span><strong class="metric-highlight"><span style="font-size: 15px;">2.54% → 76.69%</span></strong><span style="font-size: 15px;">로 개선했습니다.&nbsp;</span></p><p style="margin: 0; line-height: 1.8;"><span style="font-size: 15px;">✅ SOTA 단일 모델 대비 </span><strong><span style="font-size: 15px;">+3.81%p</span></strong><span style="font-size: 15px;"> 향상&nbsp;</span></p><p style="margin: 0; line-height: 1.8;"><span style="font-size: 15px;">✅ Re-ranker 미사용 대비 </span><strong><span style="font-size: 15px;">+74.15%p</span></strong><span style="font-size: 15px;"> 향상&nbsp;</span></p><p style="margin: 0; line-height: 1.8;"><span style="font-size: 15px;">✅ 데이터셋: </span><strong><span style="font-size: 15px;">FinRAG</span></strong><span style="font-size: 15px;"> (금융 재무제표 이미지 기반 QA 벤치마크) - 893개 문서, 708개 질의응답
+        </span></p>
+      </div>
+
+      <div class="grid-2-col" style="margin-bottom: 25px; margin-top: 20px;">
+        <div class="info-box" style="background: #fef2f2; border: 1px solid #fca5a5;">
+          <h3 style="font-size: 1.05rem; color: #b91c1c; margin-top: 0; margin-bottom: 12px;"><span style="font-size: 15px;">🔴 해결한 문제</span></h3>
+          <ul style="margin-bottom: 0; padding-left: 20px; font-size: 0.9rem; line-height: 1.7;">
+            <li><strong><span style="font-size: 15px;">단순 Vector DB 검색</span></strong><span style="font-size: 15px;"> → 정확도 2.54% (거의 사용 불가)</span></li>
+            <li><strong><span style="font-size: 15px;">단일 Re-ranker 모델</span></strong><span style="font-size: 15px;"> → 복잡한 쿼리 대응 한계</span></li>
+            <li><strong><span style="font-size: 15px;">고정 가중치 방식</span></strong><span style="font-size: 15px;"> → 쿼리 특성별 최적화 불가</span></li>
+            <li style="margin-top: 8px; color: #991b1b;"><span style="font-size: 15px;">
+              예시: "2023년 Revenue는?" → </span><span style="text-decoration: line-through; font-size: 15px;">엉뚱한 문서 검색</span><span style="font-size: 15px;"> → LLM이 틀린 답변 생성
+            </span></li>
+          </ul>
+        </div>
+        <div class="info-box" style="background: #f0fdf4; border: 1px solid #86efac;">
+          <h3 style="font-size: 1.05rem; color: #15803d; margin-top: 0; margin-bottom: 12px;"><span style="font-size: 15px;">🟢 솔루션</span></h3>
+          <div style="font-size: 0.9rem; line-height: 1.7;">
+            <strong style="color: #15803d;"><span style="font-size: 15px;">6가지 Re-ranker 앙상블 + GA 최적화</span></strong><br>
+            <div style="margin-top: 10px; padding: 10px; background: white; border-radius: 4px; font-family: monospace; font-size: 0.85rem;"><span style="font-size: 15px;">
+              [BM25] [Bi-Encoder] [Cross-Encoder]</span><br><span style="font-size: 15px;">
+              [FlashRank] [Cohere] [TF-IDF]</span><br><span style="font-size: 15px;">
+              ↓</span><br>
+              <strong style="color: #7c3aed;"><span style="font-size: 15px;">[GA 최적화]</span></strong><br><span style="font-size: 15px;">
+              ↓</span><br><span style="font-size: 15px;">
+              [최적 가중치로 문서 순위 재정렬]
+            </span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="metrics-grid" style="margin-bottom: 25px;">
+        <div class="metric-card">
+          <div class="metric-label" style="font-size: 0.85rem;"><span style="font-size: 15px;">최고 정확도</span></div>
+          <div class="metric-value" style="font-size: 1.8rem;"><span style="font-size: 15px;">76.69%</span></div>
+          <div class="metric-label" style="font-size: 0.8rem;"><span style="font-size: 15px;">GA Optimized Ensemble</span></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label" style="font-size: 0.85rem;"><span style="font-size: 15px;">SOTA 대비 향상</span></div>
+          <div class="metric-value" style="font-size: 1.8rem; color: #16a34a;"><span style="font-size: 15px;">+3.81%p</span></div>
+          <div class="metric-label" style="font-size: 0.8rem;"><span style="font-size: 15px;">vs FlashRank (72.88%)</span></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label" style="font-size: 0.85rem;"><span style="font-size: 15px;">Base 대비 향상</span></div>
+          <div class="metric-value" style="font-size: 1.8rem; color: #16a34a;"><span style="font-size: 15px;">+74.15%p</span></div>
+          <div class="metric-label" style="font-size: 0.8rem;"><span style="font-size: 15px;">vs No Re-ranker (2.54%)</span></div>
+        </div>
+      </div>
+
+      <h3 style="border-left: 4px solid #7c3aed; padding-left: 10px; margin-top: 25px; font-size: 1.15rem;"><span style="font-size: 15px;">
+        📊 8가지 방법 성능 비교 (Accuracy)
+      </span></h3>
+      <div class="chart-container" style="margin: 15px 0;">
+        <!-- GA Optimized -->
+        <div class="chart-row">
+          <div class="chart-label" style="font-size: 0.9rem;"><span style="font-size: 15px;">✨ GA 최적화 앙상블</span></div>
+          <div class="chart-bar-bg">
+            <div class="chart-bar-fill bar-highlight" style="width: 76.69%;"><span style="font-size: 15px;">76.69%</span></div>
+          </div>
+          <div class="chart-value" style="font-size: 0.85rem;"><span style="font-size: 15px;">🥇</span></div>
+        </div>
+        <!-- FlashRank -->
+        <div class="chart-row">
+          <div class="chart-label" style="font-size: 0.9rem;"><span style="font-size: 15px;">FlashRank (SOTA)</span></div>
+          <div class="chart-bar-bg">
+            <div class="chart-bar-fill bar-medium" style="width: 72.88%;"><span style="font-size: 15px;">72.88%</span></div>
+          </div>
+          <div class="chart-value" style="font-size: 0.85rem;"><span style="font-size: 15px;">🥈</span></div>
+        </div>
+        <!-- Cross Encoder -->
+        <div class="chart-row">
+          <div class="chart-label" style="font-size: 0.9rem;"><span style="font-size: 15px;">Cross-Encoder</span></div>
+          <div class="chart-bar-bg">
+            <div class="chart-bar-fill" style="width: 71.47%;"><span style="font-size: 15px;">71.47%</span></div>
+          </div>
+          <div class="chart-value" style="font-size: 0.85rem;"><span style="font-size: 15px;">🥉</span></div>
+        </div>
+        <!-- Bi-Encoder -->
+        <div class="chart-row">
+          <div class="chart-label" style="font-size: 0.9rem;"><span style="font-size: 15px;">Bi-Encoder</span></div>
+          <div class="chart-bar-bg">
+            <div class="chart-bar-fill" style="width: 70.62%;"><span style="font-size: 15px;">70.62%</span></div>
+          </div>
+          <div class="chart-value" style="font-size: 0.85rem;"><span style="font-size: 15px;">4th</span></div>
+        </div>
+        <!-- BM25 -->
+        <div class="chart-row">
+          <div class="chart-label" style="font-size: 0.9rem;"><span style="font-size: 15px;">BM25</span></div>
+          <div class="chart-bar-bg">
+            <div class="chart-bar-fill" style="width: 63.42%;"><span style="font-size: 15px;">63.42%</span></div>
+          </div>
+          <div class="chart-value" style="font-size: 0.85rem;"><span style="font-size: 15px;">5th</span></div>
+        </div>
+        <!-- Cohere -->
+        <div class="chart-row">
+          <div class="chart-label" style="font-size: 0.9rem;"><span style="font-size: 15px;">Cohere</span></div>
+          <div class="chart-bar-bg">
+            <div class="chart-bar-fill" style="width: 42.23%;"><span style="font-size: 15px;">42.23%</span></div>
+          </div>
+          <div class="chart-value" style="font-size: 0.85rem;"><span style="font-size: 15px;">6th</span></div>
+        </div>
+        <!-- TF-IDF -->
+        <div class="chart-row">
+          <div class="chart-label" style="font-size: 0.9rem;"><span style="font-size: 15px;">TF-IDF</span></div>
+          <div class="chart-bar-bg">
+            <div class="chart-bar-fill" style="width: 16.24%; background-color: #94a3b8; justify-content: flex-start; padding-left: 5px; color: white;"><span style="font-size: 15px;">
+              16.24%
+            </span></div>
+          </div>
+          <div class="chart-value" style="font-size: 0.85rem;"><span style="font-size: 15px;">7th</span></div>
+        </div>
+        <!-- No Reranker -->
+        <div class="chart-row">
+          <div class="chart-label" style="font-size: 0.9rem;"><span style="font-size: 15px;">❌ Re-ranker 없음</span></div>
+          <div class="chart-bar-bg">
+            <div class="chart-bar-fill" style="width: 2.54%; background-color: #cbd5e1; justify-content: flex-start; padding-left: 5px; color: #333;"><span style="font-size: 15px;">
+              2.54%
+            </span></div>
+          </div>
+          <div class="chart-value" style="font-size: 0.85rem;"><span style="font-size: 15px;">8th</span></div>
+        </div>
+      </div>
+
+      <h3 style="border-left: 4px solid #7c3aed; padding-left: 10px; margin-top: 30px; font-size: 1.15rem;"><span style="font-size: 15px;">
+        🏗️ 시스템 아키텍처 (8단계 RAG 파이프라인)
+      </span></h3>
+      <div style="background: #f9fafb; padding: 20px; border-radius: 6px; border: 1px solid #e5e7eb; margin: 15px 0;">
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+          <div style="text-align: center; padding: 12px; background: white; border-radius: 6px; border: 2px solid #dbeafe;">
+            <div style="font-weight: 700; color: #2563eb; margin-bottom: 6px;"><span style="font-size: 15px;">1️⃣ Load</span></div>
+            <div style="font-size: 0.8rem; color: #64748b;"><span style="font-size: 15px;">LlamaParse</span><br><span style="font-size: 15px;">이미지 → 텍스트</span></div>
+          </div>
+          <div style="text-align: center; padding: 12px; background: white; border-radius: 6px; border: 2px solid #dbeafe;">
+            <div style="font-weight: 700; color: #2563eb; margin-bottom: 6px;"><span style="font-size: 15px;">2️⃣ Split</span></div>
+            <div style="font-size: 0.8rem; color: #64748b;"><span style="font-size: 15px;">청크 분할</span><br><span style="font-size: 15px;">(10~20 토큰)</span></div>
+          </div>
+          <div style="text-align: center; padding: 12px; background: white; border-radius: 6px; border: 2px solid #dbeafe;">
+            <div style="font-weight: 700; color: #2563eb; margin-bottom: 6px;"><span style="font-size: 15px;">3️⃣ </span><span style="font-size: 15px;">Embedding</span></div>
+            <div style="font-size: 0.8rem; color: #64748b;"><span style="font-size: 15px;">Upstage</span><br><span style="font-size: 15px;">벡터화</span></div>
+          </div>
+          <div style="text-align: center; padding: 12px; background: white; border-radius: 6px; border: 2px solid #dbeafe;">
+            <div style="font-weight: 700; color: #2563eb; margin-bottom: 6px;"><span style="font-size: 15px;">4️⃣ Vector DB</span></div>
+            <div style="font-size: 0.8rem; color: #64748b;"><span style="font-size: 15px;">FAISS</span><br><span style="font-size: 15px;">893개 문서 저장</span></div>
+          </div>
+          <div style="text-align: center; padding: 12px; background: white; border-radius: 6px; border: 2px solid #f97316;">
+            <div style="font-weight: 700; color: #f97316; margin-bottom: 6px;"><span style="font-size: 15px;">5️⃣ Retrieval</span></div>
+            <div style="font-size: 0.8rem; color: #64748b;"><span style="font-size: 15px;">Top-10</span><br><span style="font-size: 15px;">후보 추출</span></div>
+          </div>
+          <div style="text-align: center; padding: 12px; background: white; border-radius: 6px; border: 2px solid #7c3aed;">
+            <div style="font-weight: 700; color: #7c3aed; margin-bottom: 6px;"><span style="font-size: 15px;">6️⃣ Re-ranking</span></div>
+            <div style="font-size: 0.8rem; color: #64748b;"><span style="font-size: 15px;">6개 모델</span><br><span style="font-size: 15px;">동시 실행</span></div>
+          </div>
+          <div style="text-align: center; padding: 12px; background: white; border-radius: 6px; border: 2px solid #7c3aed;">
+            <div style="font-weight: 700; color: #7c3aed; margin-bottom: 6px;"><span style="font-size: 15px;">7️⃣ GA 최적화</span></div>
+            <div style="font-size: 0.8rem; color: #64748b;"><span style="font-size: 15px;">가중치</span><br><span style="font-size: 15px;">자동 탐색</span></div>
+          </div>
+          <div style="text-align: center; padding: 12px; background: white; border-radius: 6px; border: 2px solid #16a34a;">
+            <div style="font-weight: 700; color: #16a34a; margin-bottom: 6px;"><span style="font-size: 15px;">8️⃣ LLM 생성</span></div>
+            <div style="font-size: 0.8rem; color: #64748b;"><span style="font-size: 15px;">Gemini 1.5 Pro</span><br><span style="font-size: 15px;">JSON 응답</span></div>
+          </div>
+        </div>
+      </div>
+
+
+      <h3 style="border-left: 4px solid #7c3aed; padding-left: 10px; margin-top: 30px; font-size: 1.15rem;"><span style="font-size: 15px;">
+        🎯 RAG 파이프라인 상세 다이어그램
+      </span></h3>
+      <div style="background: #f9fafb; padding: 25px; border-radius: 8px; border: 1px solid #e5e7eb; margin: 20px 0;">
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          
+          <!-- Row 1: Query & Retrieval -->
+          <div style="display: flex; align-items: center; gap: 15px;">
+            <div style="flex: 1; background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 100%); border: 2px solid #2563eb; border-radius: 10px; padding: 20px; text-align: center;">
+              <div style="font-weight: 700; color: #1e40af; font-size: 1rem; margin-bottom: 8px;"><span style="font-size: 15px;">💬 Query Input</span></div>
+              <div style="font-size: 0.85rem; color: #64748b;"><span style="font-size: 15px;">사용자 질의</span></div>
+            </div>
+            <div style="font-size: 1.5rem; color: #94a3b8;"><span style="font-size: 15px;">→</span></div>
+            <div style="flex: 2; background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 100%); border: 2px solid #2563eb; border-radius: 10px; padding: 20px; text-align: center;">
+              <div style="font-weight: 700; color: #1e40af; font-size: 1rem; margin-bottom: 8px;"><span style="font-size: 15px;">🔍 FAISS Retrieval</span></div>
+              <div style="font-size: 0.85rem; color: #64748b;"><span style="font-size: 15px;">Vector DB에서 Top-10 후보 문서 검색</span></div>
+            </div>
+          </div>
+          
+          <div style="text-align: center; font-size: 1.5rem; color: #94a3b8;"><span style="font-size: 15px;">↓</span></div>
+          
+          <!-- Row 2: 6 Re-rankers -->
+          <div style="background: linear-gradient(135deg, #f5f3ff 0%, #faf5ff 100%); border: 2px solid #7c3aed; border-radius: 10px; padding: 20px;">
+            <div style="font-weight: 700; color: #5b21b6; font-size: 1rem; margin-bottom: 15px; text-align: center;"><span style="font-size: 15px;">🔄 6가지 Re-ranker 동시 실행</span></div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+              <div style="background: white; border: 1px solid #e9d5ff; border-radius: 6px; padding: 12px; text-align: center;">
+                <div style="font-weight: 600; color: #7c3aed; font-size: 0.9rem;"><span style="font-size: 15px;">BM25</span></div>
+                <div style="font-size: 0.75rem; color: #64748b;"><span style="font-size: 15px;">키워드 매칭</span></div>
+              </div>
+              <div style="background: white; border: 1px solid #e9d5ff; border-radius: 6px; padding: 12px; text-align: center;">
+                <div style="font-weight: 600; color: #7c3aed; font-size: 0.9rem;"><span style="font-size: 15px;">TF-IDF</span></div>
+                <div style="font-size: 0.75rem; color: #64748b;"><span style="font-size: 15px;">통계 기반</span></div>
+              </div>
+              <div style="background: white; border: 1px solid #e9d5ff; border-radius: 6px; padding: 12px; text-align: center;">
+                <div style="font-weight: 600; color: #7c3aed; font-size: 0.9rem;"><span style="font-size: 15px;">Bi-Encoder</span></div>
+                <div style="font-size: 0.75rem; color: #64748b;"><span style="font-size: 15px;">빠른 유사도</span></div>
+              </div>
+              <div style="background: white; border: 1px solid #e9d5ff; border-radius: 6px; padding: 12px; text-align: center;">
+                <div style="font-weight: 600; color: #7c3aed; font-size: 0.9rem;"><span style="font-size: 15px;">Cross-Encoder</span></div>
+                <div style="font-size: 0.75rem; color: #64748b;"><span style="font-size: 15px;">깊은 문맥 이해</span></div>
+              </div>
+              <div style="background: white; border: 1px solid #e9d5ff; border-radius: 6px; padding: 12px; text-align: center;">
+                <div style="font-weight: 600; color: #7c3aed; font-size: 0.9rem;"><span style="font-size: 15px;">FlashRank</span></div>
+                <div style="font-size: 0.75rem; color: #64748b;"><span style="font-size: 15px;">SOTA 경량</span></div>
+              </div>
+              <div style="background: white; border: 1px solid #e9d5ff; border-radius: 6px; padding: 12px; text-align: center;">
+                <div style="font-weight: 600; color: #7c3aed; font-size: 0.9rem;"><span style="font-size: 15px;">Cohere</span></div>
+                <div style="font-size: 0.75rem; color: #64748b;"><span style="font-size: 15px;">상용 API</span></div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="text-align: center; font-size: 1.5rem; color: #94a3b8;"><span style="font-size: 15px;">↓</span></div>
+          
+          <!-- Row 3: GA Optimization -->
+          <div style="background: linear-gradient(135deg, #fef3c7 0%, #fef9c3 100%); border: 2px solid #f59e0b; border-radius: 10px; padding: 20px; text-align: center;">
+            <div style="font-weight: 700; color: #b45309; font-size: 1rem; margin-bottom: 8px;"><span style="font-size: 15px;">⚙️ GA 최적화 (1,000세대 진화)</span></div>
+            <div style="font-size: 0.85rem; color: #78350f; margin-bottom: 10px;"><span style="font-size: 15px;">각 Re-ranker의 최적 가중치 자동 탐색</span></div>
+            <div style="background: white; border-radius: 6px; padding: 10px; font-family: monospace; font-size: 0.8rem; color: #92400e;"><span style="font-size: 15px;">
+              w₁·BM25 + w₂·TF-IDF + w₃·Bi-Encoder + w₄·Cross-Encoder + w₅·FlashRank + w₆·Cohere
+            </span></div>
+          </div>
+          
+          <div style="text-align: center; font-size: 1.5rem; color: #94a3b8;"><span style="font-size: 15px;">↓</span></div>
+          
+          <!-- Row 4: Final Ranking & LLM -->
+          <div style="display: flex; align-items: center; gap: 15px;">
+            <div style="flex: 1; background: linear-gradient(135deg, #d1fae5 0%, #dcfce7 100%); border: 2px solid #16a34a; border-radius: 10px; padding: 20px; text-align: center;">
+              <div style="font-weight: 700; color: #15803d; font-size: 1rem; margin-bottom: 8px;"><span style="font-size: 15px;">📊 최종 문서 순위</span></div>
+              <div style="font-size: 0.85rem; color: #64748b;"><span style="font-size: 15px;">가중치 적용 후 재정렬</span></div>
+            </div>
+            <div style="font-size: 1.5rem; color: #94a3b8;"><span style="font-size: 15px;">→</span></div>
+            <div style="flex: 1; background: linear-gradient(135deg, #d1fae5 0%, #dcfce7 100%); border: 2px solid #16a34a; border-radius: 10px; padding: 20px; text-align: center;">
+              <div style="font-weight: 700; color: #15803d; font-size: 1rem; margin-bottom: 8px;"><span style="font-size: 15px;">🤖 Gemini 1.5 Pro</span></div>
+              <div style="font-size: 0.85rem; color: #64748b;"><span style="font-size: 15px;">최종 답변 생성 (JSON)</span></div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+      <h3 style="border-left: 4px solid #7c3aed; padding-left: 10px; margin-top: 30px; font-size: 1.15rem;"><span style="font-size: 15px;">
+        🔬 사용된 Re-ranker 모델 6종
+      </span></h3>
+      <table style="font-size: 0.85rem; margin: 10px 0 20px 0;">
+        <thead>
+          <tr>
+            <th style="padding: 10px;"><span style="font-size: 15px;">구분</span></th>
+            <th style="padding: 10px;"><span style="font-size: 15px;">모델명</span></th>
+            <th style="padding: 10px;"><span style="font-size: 15px;">방식</span></th>
+            <th style="padding: 10px;"><span style="font-size: 15px;">특징</span></th>
+            <th style="padding: 10px;"><span style="font-size: 15px;">정확도</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding: 10px;"><span style="font-size: 15px;">통계 기반</span></td>
+            <td style="padding: 10px;"><strong><span style="font-size: 15px;">BM25</span></strong></td>
+            <td style="padding: 10px;"><span style="font-size: 15px;">단어 빈도</span></td>
+            <td style="padding: 10px;"><span style="font-size: 15px;">키워드 질의에 강함</span></td>
+            <td style="padding: 10px;"><span style="font-size: 15px;">63.42%</span></td>
+          </tr>
+          <tr>
+            <td style="padding: 10px;"><span style="font-size: 15px;">통계 기반</span></td>
+            <td style="padding: 10px;"><strong><span style="font-size: 15px;">TF-IDF</span></strong></td>
+            <td style="padding: 10px;"><span style="font-size: 15px;">문서 빈도</span></td>
+            <td style="padding: 10px;"><span style="font-size: 15px;">빠르나 정확도 낮음</span></td>
+            <td style="padding: 10px;"><span style="font-size: 15px;">16.24%</span></td>
+          </tr>
+          <tr>
+            <td style="padding: 10px;"><span style="font-size: 15px;">Deep Learning</span></td>
+            <td style="padding: 10px;"><strong><span style="font-size: 15px;">Bi-Encoder</span></strong></td>
+            <td style="padding: 10px;"><span style="font-size: 15px;">Cosine 유사도</span></td>
+            <td style="padding: 10px;"><span style="font-size: 15px;">빠른 속도</span></td>
+            <td style="padding: 10px;"><span style="font-size: 15px;">70.62%</span></td>
+          </tr>
+          <tr>
+            <td style="padding: 10px;"><span style="font-size: 15px;">Deep Learning</span></td>
+            <td style="padding: 10px;"><strong><span style="font-size: 15px;">Cross-Encoder</span></strong></td>
+            <td style="padding: 10px;"><span style="font-size: 15px;">동시 입력</span></td>
+            <td style="padding: 10px;"><span style="font-size: 15px;">문맥 이해 우수</span></td>
+            <td style="padding: 10px;"><span style="font-size: 15px;">71.47%</span></td>
+          </tr>
+          <tr>
+            <td style="padding: 10px;"><span style="font-size: 15px;">SOTA</span></td>
+            <td style="padding: 10px;"><strong><span style="font-size: 15px;">FlashRank</span></strong></td>
+            <td style="padding: 10px;"><span style="font-size: 15px;">경량화 모델</span></td>
+            <td style="padding: 10px;"><span style="font-size: 15px;">속도/성능 균형</span></td>
+            <td style="padding: 10px;"><strong><span style="font-size: 15px;">72.88%</span></strong></td>
+          </tr>
+          <tr>
+            <td style="padding: 10px;"><span style="font-size: 15px;">API</span></td>
+            <td style="padding: 10px;"><strong><span style="font-size: 15px;">Cohere</span></strong></td>
+            <td style="padding: 10px;"><span style="font-size: 15px;">상용 API</span></td>
+            <td style="padding: 10px;"><span style="font-size: 15px;">안정적이나 비용 발생</span></td>
+            <td style="padding: 10px;"><span style="font-size: 15px;">42.23%</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="background: white; padding: 25px; border-radius: 0; border: none; margin: 25px auto; max-width: 700px;">
+        <h3 style="font-size: 1.1rem; margin-top: 0; margin-bottom: 18px; color: #111; text-align: center;"><span style="font-size: 15px;">
+          💡 핵심 인사이트 &amp; 배운 점
+        </span></h3>
+        <div style="border-bottom: 2px solid #e5e7eb; margin-bottom: 18px;"></div>
+        
+        <div style="margin-bottom: 18px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <span style="font-size: 15px;">✅</span>
+            <strong style="font-size: 0.95rem; color: #7c3aed;"><span style="font-size: 15px;">앙상블 &gt; 최고 단일 모델</span></strong>
+          </div>
+          <div style="font-size: 0.85rem; color: #475569; line-height: 1.6; margin-left: 30px;"><span style="font-size: 15px;">
+            FlashRank(SOTA) 대비 +3.81%p 향상. 각 모델의 장점을 결합하여 안정적 성능 확보
+          </span></div>
+        </div>
+        
+        <div style="margin-bottom: 18px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <span style="font-size: 15px;">✅</span>
+            <strong style="font-size: 0.95rem; color: #7c3aed;"><span style="font-size: 15px;">경량 모델 조합의 효율성</span></strong>
+          </div>
+          <div style="font-size: 0.85rem; color: #475569; line-height: 1.6; margin-left: 30px;"><span style="font-size: 15px;">
+            BM25(무료) + Bi-Encoder + FlashRank 조합으로 비용 효율적이면서도 높은 정확도 달성
+          </span></div>
+        </div>
+        
+        <div style="margin-bottom: 18px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <span style="font-size: 15px;">✅</span>
+            <strong style="font-size: 0.95rem; color: #7c3aed;"><span style="font-size: 15px;">Re-ranker의 필수성 입증</span></strong>
+          </div>
+          <div style="font-size: 0.85rem; color: #475569; line-height: 1.6; margin-left: 30px;"><span style="font-size: 15px;">
+            Re-ranker 없으면 2.54% (거의 사용 불가) → 사용 시 최소 16.24% 이상
+          </span></div>
+        </div>
+        
+        <div style="margin-bottom: 18px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <span style="font-size: 15px;">✅</span>
+            <strong style="font-size: 0.95rem; color: #7c3aed;"><span style="font-size: 15px;">GA 최적화의 효과</span></strong>
+          </div>
+          <div style="font-size: 0.85rem; color: #475569; line-height: 1.6; margin-left: 30px;"><span style="font-size: 15px;">
+            1,000세대 진화 알고리즘으로 최적 가중치 자동 탐색. 수동 튜닝 대비 시간 절약 + 성능 향상
+          </span></div>
+        </div>
+        
+        <div style="background: #f5f3ff; padding: 15px; border-radius: 6px; border-left: 4px solid #7c3aed; margin-top: 20px;">
+          <div style="font-weight: 600; color: #5b21b6; font-size: 0.95rem; margin-bottom: 8px;"><span style="font-size: 15px;">📊 가중치 분석 결과</span></div>
+          <div style="font-size: 0.85rem; color: #475569; line-height: 1.6;"><span style="font-size: 15px;">
+            • </span><strong><span style="font-size: 15px;">FlashRank: 0.937</span></strong><span style="font-size: 15px;"> (가장 높은 기여도)</span><span style="font-size: 15px;">
+            • TF-IDF: 0.656 / Bi-Encoder: 0.637</span><span style="font-size: 15px;">
+            • Cross-Encoder, BM25, Cohere: 상황별 보완 역할</span>
+            <span style="color: rgb(124, 58, 237); font-size: 15px;">→ FlashRank가 핵심, 나머지 모델이 약점 보완</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: white; padding: 25px; border-radius: 0; border: none; margin: 25px auto; max-width: 700px;">
+        <h3 style="font-size: 1.1rem; margin-top: 0; margin-bottom: 18px; color: #111; text-align: center;"><span style="font-size: 15px;">
+          ⚠️ 현재 한계 &amp; 향후 개선 방향
+        </span></h3>
+        <div style="border-bottom: 2px solid #e5e7eb; margin-bottom: 18px;"></div>
+        
+        <div style="margin-bottom: 18px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <span style="font-size: 15px;">❌</span>
+            <strong style="font-size: 0.95rem; color: #b91c1c;"><span style="font-size: 15px;">금융 도메인 한정</span></strong>
+          </div>
+          <div style="font-size: 0.85rem; color: #475569; line-height: 1.6; margin-left: 30px;"><span style="font-size: 15px;">
+            재무제표 중심 실험 → 다른 도메인(법률, 의료 등) 일반화 필요
+          </span></div>
+        </div>
+        
+        <div style="margin-bottom: 18px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <span style="font-size: 15px;">❌</span>
+            <strong style="font-size: 0.95rem; color: #b91c1c;"><span style="font-size: 15px;">특정 LLM 의존성</span></strong>
+          </div>
+          <div style="font-size: 0.85rem; color: #475569; line-height: 1.6; margin-left: 30px;"><span style="font-size: 15px;">
+            Gemini 1.5 Pro에만 테스트 → GPT-4, Claude 등 다른 LLM 검증 필요
+          </span></div>
+        </div>
+        
+        <div style="margin-bottom: 0;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <span style="font-size: 15px;">❌</span>
+            <strong style="font-size: 0.95rem; color: #b91c1c;">실시간 패턴 변화 대응</strong>
+          </div>
+          <div style="font-size: 0.85rem; color: #475569; line-height: 1.6; margin-left: 30px;">
+            고정 가중치 사용 → 쿼리 패턴 변화 시 동적 재학습 전략 부족
+          </div>
+        </div>
+      </div>
+
+    </div>
+  
+
+</body></html>
